@@ -2,6 +2,10 @@ extends Node2D
 
 const LAST_RUN_PATH := "user://movement_lab_last_run.json"
 const MAX_RUN_SECONDS := 180.0
+@export var course_id: String = "movement_lab_01"
+@export var max_run_seconds: float = MAX_RUN_SECONDS
+@export var fall_y: float = 1250.0
+@export var finish_y: float = 760.0
 @export var replay_path: String = LAST_RUN_PATH
 
 @onready var player = $Player
@@ -42,9 +46,9 @@ func _physics_process(delta: float) -> void:
 		if record_clock >= 1.0 / 30.0:
 			record_clock -= 1.0 / 30.0
 			record_sample()
-		if player.position.x >= $Finish.position.x and player.position.y < 760.0:
+		if finish_reached():
 			complete_run()
-		elif player.position.y > 1250.0 or elapsed >= MAX_RUN_SECONDS:
+		elif run_failed():
 			reset_run()
 	update_ghost()
 	var target: Vector2 = player.position + Vector2(150.0, -80.0)
@@ -77,6 +81,8 @@ func record_sample() -> void:
 		"vx": player.velocity.x, "vy": player.velocity.y, "state": player.state_name,
 		"axis": Input.get_axis("move_left", "move_right"), "jump": Input.is_action_pressed("jump"),
 		"slide": Input.is_action_pressed("slide")})
+	if player.has_method("ground_telemetry"):
+		samples[-1].merge(player.ground_telemetry())
 
 func complete_run() -> void:
 	running = false
@@ -92,21 +98,24 @@ func complete_run() -> void:
 	previous_time = elapsed
 	var file := FileAccess.open(replay_path, FileAccess.WRITE)
 	if file:
-		file.store_string(JSON.stringify({"version": 1, "course": "movement_lab_01", "duration": elapsed, "samples": samples}))
+		file.store_string(JSON.stringify({"version": 1, "course": course_id, "duration": elapsed, "samples": samples}))
 	else:
 		message.text += "   /   GHOST SAVE FAILED"
 
 func load_previous_run() -> void:
+	previous_samples = []
+	previous_time = 0.0
+	ghost_index = 0
 	if not FileAccess.file_exists(replay_path):
 		return
 	var file := FileAccess.open(replay_path, FileAccess.READ)
-	if not file or file.get_length() > 4000000:
+	if not file or file.get_length() > 16000000:
 		return
 	var data = JSON.parse_string(file.get_as_text())
-	if not data is Dictionary or data.get("version") != 1 or data.get("course") != "movement_lab_01":
+	if not data is Dictionary or data.get("version") != 1 or data.get("course") != course_id:
 		return
 	var saved = data.get("samples")
-	if not saved is Array or saved.size() < 2 or saved.size() > 6000:
+	if not saved is Array or saved.size() < 2 or saved.size() > ceili(max_run_seconds * 30.0) + 3:
 		return
 	var last_t: float = -1.0
 	for sample in saved:
@@ -117,7 +126,7 @@ func load_previous_run() -> void:
 				return
 			if not is_finite(float(sample[key])):
 				return
-		if float(sample.t) < last_t or float(sample.t) > MAX_RUN_SECONDS + 1.0:
+		if float(sample.t) < 0.0 or float(sample.t) < last_t or float(sample.t) > max_run_seconds + 1.0:
 			return
 		last_t = float(sample.t)
 	previous_samples = saved
@@ -132,4 +141,19 @@ func update_ghost() -> void:
 	var a: Dictionary = previous_samples[ghost_index]
 	var b: Dictionary = previous_samples[mini(ghost_index + 1, previous_samples.size() - 1)]
 	var weight := clampf((elapsed - float(a.t)) / maxf(float(b.t) - float(a.t), 0.001), 0.0, 1.0)
+	if a.has("crouched") and a.crouched is bool:
+		ghost.polygon = PackedVector2Array([Vector2(-11, -2), Vector2(11, -2), Vector2(11, 20), Vector2(-11, 20)]) if a.crouched else PackedVector2Array([Vector2(-12, -20), Vector2(12, -20), Vector2(12, 20), Vector2(-12, 20)])
 	ghost.position = Vector2(float(a.x), float(a.y)).lerp(Vector2(float(b.x), float(b.y)), weight)
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.physical_keycode == KEY_1:
+			get_tree().change_scene_to_file("res://scenes/movement_lab.tscn")
+		elif event.physical_keycode == KEY_2:
+			get_tree().change_scene_to_file("res://scenes/movement_lab_02.tscn")
+
+func finish_reached() -> bool:
+	return player.position.x >= $Finish.position.x and player.position.y < finish_y
+
+func run_failed() -> bool:
+	return player.position.y > fall_y or elapsed >= max_run_seconds

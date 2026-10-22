@@ -1,69 +1,95 @@
-# movement_labs
+# Movement Labs
 
-A small, editable momentum platformer prototype. Run the project (F6 for the
-movement_lab scene, or F5 for the project) to play the first movement study.
+Open `project.godot` in Godot and press **F5** for **Lab 02**. The project remains
+configured for Godot 4.7. Validation on this machine uses Godot **4.6.3**.
 
-## Controls
+## Play
 
-| Action | Keyboard |
+| Action | Key |
 | --- | --- |
 | Move | A / D or Left / Right |
-| Jump | Space, W, or Up; tap for a short hop, hold for height |
-| Slide | Hold S, Down, or Shift |
-| Restart course | R |
-| Show/hide previous-run ghost | G |
+| Jump / wall jump | Space, W, Up; tap for a short hop, hold for height |
+| Slide / crouch | Hold S, Down, Shift |
+| Restart current mode | R |
+| Toggle previous completed run ghost | G |
+| Switch to preserved Lab 01 / new Lab 02 | 1 / 2 |
+| Timed run / exploration (Lab 02) | E; starts a fresh attempt |
+| Course overview (Lab 02) | M |
 
-Move to start the timer. Follow the course to the amber finish gate. Falling
-into a gap resets immediately. A completed run becomes the ghost for the next
-attempt. The current run resets after three minutes to keep recording bounded.
+Lab 02 spans 28,600 horizontal pixels across five connected basins. The teal
+route carries speed down long slopes and through low shortcuts. Purple shafts,
+launch ridges, stepping islands, return stairs and overlook spurs offer alternate
+lines. Amber pockets catch missed gaps and provide a two-jump route back up.
+Routes reconnect, and the fastest tested line does not use wall jumping.
 
-## First course
+The scripted full run takes about **31.3 seconds**, with five gap jumps and no
+wall jumps. This is a reproducible test line, not a claim about the absolute
+fastest possible route. Exploration has **45 optional discovery rings**, a map,
+and recovery at the last visited basin rest stop. E disables the finish and
+recording so exploration cannot replace a timed ghost. R clears discoveries;
+progress is per attempt. Exploring all branches is designed for **5–10 minutes**,
+but that pacing needs human playtesting. Timed recording supports up to 15 minutes.
 
-- Flat starting area, a 30-degree descent, a 45-degree descent, two gaps,
-  a 30-degree climb, and a finish platform.
-- Acceleration and braking, air steering, variable jump height, 140 ms coyote
-  time, and a 160 ms jump buffer.
-- Downhill slides gain speed; uphill slides spend it. Jumping preserves lateral
-  momentum. Slide is a movement mode with a visual pose, not a smaller collision
-  shape: this course deliberately has no low tunnels.
-- Camera follow, speed trail, three background depth layers, sparse motes,
-  speed/state/timer readouts, peak speed, and jump count.
-- Position-based ghost replay at 30 samples/second, with input, velocity, and
-  movement-state telemetry. This is a visual recording, not deterministic input
-  resimulation. Only the most recent completed run is saved.
+## Movement and editing
 
-## Editing
+`scenes/movement_lab_02.tscn` contains ordinary editable StaticBody2D terrain,
+CollisionPolygon2D shapes, Polygon2D fills, Line2D edges, labels, discoveries and
+rest-stop markers. Edit collision, fill and edge together. It is fully authored
+in the scene; no generator or external package is needed to run it.
 
-`scenes/movement_lab.tscn` is the main scene. Its terrain consists of ordinary
-StaticBody2D nodes with editable CollisionPolygon2D, Polygon2D, and Line2D
-children. When changing terrain, update the collision, fill, and visible edge
-together. Spawn and Finish are markers. All course labels are scene nodes.
+`scenes/player_02.tscn` uses `scripts/player_02.gd`. Select Player in the Inspector
+to edit running, jump, slide and wall-jump parameters. Run, gravity, slide
+friction, slope acceleration and ground-speed cap retain the original values.
 
-`scenes/player.tscn` contains the CharacterBody2D controller. Select Player in the
-Inspector to tune running, jump forgiveness, and sliding. Its script is
-`scripts/player.gd`; the course, timer, and recording are in `scripts/lab.gd`.
+- Wall jumping includes a 140 ms wall grace window, the existing 160 ms input
+  buffer, a 120 ms launch control lock and a held-against-wall fall-speed cap.
+- Sliding changes the capsule from 40 to 22 px high while keeping its feet fixed.
+  A physics shape query blocks standing and jump expansion under a ceiling,
+  including while airborne. Standing resumes automatically when clear.
+- Floor snapping and the existing tangent-speed calculation remain intact.
+  `maximum_speed` caps ground-tangent speed, not total airborne vector speed.
 
-Input actions are stored in Project Settings > Input Map. The project remains
-marked 4.7 as originally configured. The available local engine used for initial
-validation was **Godot 4.6.3**, so no 4.7 runtime validation is claimed.
+The shared `scripts/lab.gd` now exposes course ID, replay path, duration and
+bounds with Lab 01 defaults. `scripts/lab_02.gd` supplies Lab 02's finish region,
+local fall boundary, exploration, discovery display and map.
 
-Ghost data is saved to `user://movement_lab_last_run.json`. Use Godot's
-**Project > Open User Data Folder** to inspect it. The schema includes course
-and format identifiers; change the course identifier in `lab.gd` when changing
-the layout so ghosts from old layouts are not loaded.
+## Lab 01 regression baseline
+
+Lab 01's scene, player scene, controller and original behavioral test are
+unchanged. Press 1 or run `scenes/movement_lab.tscn` directly. Lab 01 retains its
+original visual-only slide and user save location.
+
+The uploaded replay is preserved byte-for-byte in
+`tests/fixtures/lab01_7_78.json`: **7.783333 seconds, 235 samples, 1,046.83 px/s
+peak slide velocity**. It is a positional recording sampled at 30 Hz, not a
+deterministic input recording. Tests load and interpolate it in Lab 01, and
+verify rejection in Lab 02. They never overwrite the fixture or the user's save.
+
+## Ghosts and telemetry
+
+| Course | Identifier | Save file |
+| --- | --- | --- |
+| Lab 01 | `movement_lab_01` | `user://movement_lab_last_run.json` |
+| Lab 02 | `movement_lab_02_v1` | `user://movement_lab_02_v1_last_run.json` |
+
+Use Godot's **Project > Open User Data Folder** to find player saves. Each lab
+loads only its own identifier. Change the Lab 02 identifier and replay path when
+making incompatible course changes. The most recent completed timed run becomes
+the ghost. New optional telemetry fields record physical crouch, floor contact,
+floor normal, actual velocity, tangent speed and wall-jump count. Ghosts display
+the recorded crouch pose; original version-1 positional recordings still load.
 
 ## Validation
 
-Run the behavioral checks with your Godot executable:
+From this project directory, substitute your Godot executable:
 
-```text
-godot --headless --path <project-folder> --log-file <absolute-log-path> --script res://tests/test_movement.gd
+```powershell
+godot --headless --path . --fixed-fps 60 --script res://tests/test_movement.gd
+godot --headless --path . --fixed-fps 60 --script res://tests/test_lab02.gd
 ```
 
-The checks exercise real physics, jump forgiveness, momentum on slopes, a full
-course traversal, recording/reload, ghost toggle, and fall recovery. Their
-temporary replay file lives in `tests/.runtime/`, never the player's save file.
-
-Next playtest: tune acceleration and braking first, then jump height and air
-steering, then slide friction. Collectibles, map exploration, controller bindings,
-and additional moves are deferred until the basic movement feels right.
+The first suite has 20 regression checks; the second has 38 checks for collision,
+wall forgiveness, actual branch traversals, the complete timed route, fixture
+compatibility, long ghosts and exploration recovery. Tests use only
+`tests/.runtime/`, which is ignored by Git. See `docs/LAB02_VALIDATION.md` for
+results, changed files, slope findings and limitations.
