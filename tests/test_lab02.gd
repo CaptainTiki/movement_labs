@@ -47,7 +47,7 @@ func run() -> void:
 	check(not player.crouched and player.collider.shape.height == 40.0, "clear space restores standing shape")
 
 	# Enter the real 28 px tunnel, release slide and request jump under the roof.
-	await place(Vector2(2380, 1078))
+	await place(Vector2(2380, 1328))
 	Input.action_press("move_right")
 	Input.action_press("slide")
 	for i in range(100):
@@ -116,7 +116,7 @@ func run() -> void:
 	check(player.wall_jump_count == 0 and player.wall_left == 0, "wall coyote memory expires after leaving an actual wall")
 
 	# Release crouch while airborne beneath the same low roof.
-	await place(Vector2(2590, 1078), 1)
+	await place(Vector2(2490, 1328), 1)
 	Input.action_press("slide")
 	await frames(2)
 	player.position.y -= 3
@@ -146,50 +146,6 @@ func run() -> void:
 			shaft_top = true
 			break
 	check(shaft_top, "optional shaft can be climbed from its floor with repeated wall jumps")
-	# Follow the upper crossing back to the main line, jumping only level gaps.
-	await place(Vector2(930, -82))
-	Input.action_press("move_right")
-	var upper_jumps := [2060.0, 2530.0, 3000.0]
-	var upper_index := 0
-	var upper_landed: Dictionary = {}
-	var upper_trace: Array = []
-	for i in range(1200):
-		if i % 12 == 0 and player.position.x > 2000 and player.position.x < 3400:
-			upper_trace.append([snappedf(player.position.x, 1), snappedf(player.position.y, 1), player.is_on_floor()])
-		if player.is_on_floor():
-			Input.action_release("jump")
-			for k in range(5):
-				if player.position.x >= 2220 + k * 235 and player.position.x <= 2380 + k * 235 and player.position.y < 850:
-					upper_landed[k] = true
-			if upper_index < upper_jumps.size() and player.position.x >= upper_jumps[upper_index]:
-				Input.action_press("jump")
-				upper_index += 1
-		await frames(1)
-		if player.position.x > 4500:
-			break
-	check(player.position.x > 4500 and upper_landed.size() == 5, "upper route visits all five islands and rejoins the main descent")
-	if upper_landed.size() != 5:
-		print("UPPER LANDED: ", upper_landed, " position: ", player.position, " trace: ", upper_trace)
-
-	# Recover from the catch pocket using two ordinary jumps through the gap.
-	await place(Vector2(3010, 1278))
-	Input.action_press("move_right")
-	Input.action_press("jump")
-	var recovered_step := false
-	for i in range(150):
-		if player.position.x > 3090 and not recovered_step:
-			Input.action_release("move_right")
-		if player.is_on_floor() and player.position.y < 1200:
-			recovered_step = true
-			Input.action_release("jump")
-			await frames(1)
-			Input.action_press("jump")
-			Input.action_press("move_right")
-		await frames(1)
-		if recovered_step and player.is_on_floor() and player.position.x > 3180:
-			break
-	check(recovered_step and player.position.x > 3180 and player.position.y < 1100, "lower recovery pocket rejoins through two reachable hops")
-
 	# Preserve the uploaded position replay and reject it for the new course.
 	var fixture := "res://tests/fixtures/lab01_7_78.json"
 	var old = load("res://scenes/movement_lab.tscn").instantiate()
@@ -207,36 +163,82 @@ func run() -> void:
 	check(lab.previous_samples.is_empty(), "Lab 02 rejects the Lab 01 course identifier")
 	lab.replay_path = "res://tests/.runtime/lab02.json"
 
-	# One uninterrupted timed route using only inputs: wall jumping is optional.
-	release_all()
-	lab.reset_run()
-	lab.set_physics_process(true)
-	await frames(10)
-	Input.action_press("move_right")
-	var gaps: Dictionary = {}
-	var trace: Array = []
-	for i in range(7200):
-		var x: float = player.position.x
-		var basin := int(x / 5600.0)
-		var local_x := fposmod(x, 5600.0)
-		if x > 700:
-			Input.action_press("slide")
-		if local_x > 2860 and local_x < 3000 and not gaps.has(basin):
-			Input.action_press("jump")
-			gaps[basin] = true
-		if local_x > 3300:
-			Input.action_release("jump")
+	var obsolete_file := FileAccess.open(lab.replay_path, FileAccess.WRITE)
+	obsolete_file.store_string('{"version":1,"course":"movement_lab_02_v1","samples":[{"t":0,"x":140,"y":478},{"t":1,"x":400,"y":478}]}')
+	obsolete_file.close()
+	lab.load_previous_run()
+	check(lab.previous_samples.is_empty(), "reservoir redesign rejects the previous five-basin Lab 02 ghost")
+
+	# Climb through the open middle crossing, from reservoir to canopy.
+	await place(Vector2(7150, 1978))
+	Input.action_press("jump")
+	Input.action_press("move_left")
+	var atrium_top := false
+	for i in range(2100):
 		await frames(1)
-		if i % 120 == 0:
-			trace.append([snappedf(player.position.x, 1), snappedf(player.position.y, 1)])
-		if lab.finished or (gaps.size() > 0 and player.position.x < 200):
+		if player.is_on_wall() and player.wall_lock_left <= 0:
+			Input.action_release("jump")
+			await frames(1)
+			Input.action_press("jump")
+			if player.get_wall_normal().x > 0:
+				Input.action_release("move_left")
+				Input.action_press("move_right")
+			else:
+				Input.action_release("move_right")
+				Input.action_press("move_left")
+		if player.position.y < -725:
+			atrium_top = true
 			break
-	check(lab.finished, "complete Lab 02 speed route is traversable without teleporting")
-	print("ROUTE: %.3f seconds, %.1f peak px/s, %d wall jumps" % [lab.elapsed, lab.peak_speed, player.wall_jump_count])
-	if not lab.finished:
-		print("TRACE: ", trace)
-	check(lab.finished and lab.elapsed >= 30 and lab.elapsed <= 60, "measured scripted speedrun falls in the 30–60 second target")
-	check(player.wall_jump_count == 0, "fast route does not require wall jumping")
+	check(atrium_top, "central atrium physically links reservoir, gallery and canopy")
+	if not atrium_top:
+		print("ATRIUM STOP: ", player.position)
+
+	await place(Vector2(2670, 1328))
+	Input.action_press("jump")
+	Input.action_press("move_left")
+	var return_top := false
+	for i in range(800):
+		await frames(1)
+		if player.is_on_wall() and player.wall_lock_left <= 0:
+			Input.action_release("jump")
+			await frames(1)
+			Input.action_press("jump")
+			Input.action_release("move_left")
+			Input.action_release("move_right")
+			Input.action_press("move_right" if player.get_wall_normal().x > 0 else "move_left")
+		if player.position.y < 475:
+			return_top = true
+			break
+	check(return_top, "west return shaft reconnects the chute to the gallery")
+
+	# The middle route works in reverse too: this is shared space, not a one-way chute.
+	await place(Vector2(3900, 478))
+	Input.action_press("move_left")
+	var reverse_jumps := [2815.0, 1135.0]
+	var reverse_index := 0
+	for i in range(1000):
+		if player.is_on_floor():
+			Input.action_release("jump")
+			if reverse_index < reverse_jumps.size() and player.position.x < reverse_jumps[reverse_index]:
+				Input.action_press("jump")
+				reverse_index += 1
+		await frames(1)
+		if player.position.x < 500 or player.position.y > 700:
+			break
+	check(player.position.x < 500 and player.position.y < 510, "gallery can be traversed back to the start through both crossings")
+
+	# Two complete routes, each starting from spawn and using only inputs.
+	await traverse("canopy")
+	check(lab.finished, "full canopy route climbs from spawn and reaches finish without teleporting")
+	print("CANOPY ROUTE: %.3f seconds" % lab.elapsed)
+	await traverse("gallery")
+	check(lab.finished, "full gallery route reaches finish without teleporting")
+	print("GALLERY ROUTE: %.3f seconds" % lab.elapsed)
+	await traverse("reservoir")
+	check(lab.finished, "full reservoir route reaches finish without teleporting")
+	print("RESERVOIR ROUTE: %.3f seconds, %.1f peak px/s, %d wall jumps" % [lab.elapsed, lab.peak_speed, player.wall_jump_count])
+	check(lab.finished and lab.elapsed >= 30 and lab.elapsed <= 60, "measured reservoir speedrun falls in the 30–60 second target")
+	check(player.wall_jump_count == 0, "fast reservoir route does not require wall jumping")
 	check(lab.samples.size() > 900 and lab.samples[-1].has("real_vx") and lab.samples[-1].has("floor_ny") and lab.samples[-1].has("crouched"), "long run records actual velocity, floor normal and physical posture")
 	var duration: float = lab.elapsed
 	lab.load_previous_run()
@@ -248,15 +250,15 @@ func run() -> void:
 	lab.exploring = true
 	lab.reset_run()
 	var saved_text := FileAccess.get_file_as_string(lab.replay_path)
-	player.position = Vector2(28610, 5230)
+	player.position = Vector2(16010, -820)
 	lab.running = true
 	await frames(2)
 	check(not lab.finished, "exploration can cross finish without ending")
-	player.position = Vector2(200, 2100)
+	player.position = Vector2(200, 2800)
 	await frames(2)
 	check(player.position.distance_to(lab.recovery_point) < 50, "exploration falls recover locally")
 	check(FileAccess.get_file_as_string(lab.replay_path) == saved_text, "exploration never overwrites timed ghost")
-	check(lab.max_run_seconds >= 600 and lab.get_node("Discoveries").get_child_count() >= 35, "long exploration budget and optional discovery targets exist")
+	check(lab.max_run_seconds >= 600 and lab.get_node("Discoveries").get_child_count() >= 25, "long exploration budget and optional discovery targets exist")
 	# The loader must accept a full ten-minute ghost, beyond the old 6,000 limit.
 	lab.exploring = false
 	var long_samples: Array = []
@@ -271,10 +273,67 @@ func run() -> void:
 	lab.update_ghost()
 	check(lab.ghost_index == 15000 and lab.ghost.polygon[0].y == -2, "long ghost seeks correctly and shows recorded crouch")
 	file = FileAccess.open(lab.replay_path, FileAccess.WRITE)
-	file.store_string('{"version":1,"course":"movement_lab_02_v1","samples":[{"t":-1,"x":0,"y":0},{"t":1,"x":1,"y":1}]}')
+	file.store_string('{"version":1,"course":"movement_lab_02_v2","samples":[{"t":-1,"x":0,"y":0},{"t":1,"x":1,"y":1}]}')
 	file.close()
 	lab.load_previous_run()
 	check(lab.previous_samples.is_empty() and lab.ghost_index == 0, "invalid replay clears previous ghost and playback cursor")
 	DirAccess.remove_absolute(lab.replay_path)
 	print("RESULT: %d checks, %d failures" % [assertions, failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+func traverse(route: String) -> void:
+	release_all()
+	lab.reset_run()
+	lab.set_physics_process(true)
+	await frames(10)
+	Input.action_press("move_right")
+	if route == "canopy":
+		for i in range(180):
+			await frames(1)
+			if player.position.x >= 690:
+				break
+		Input.action_release("move_right")
+		await frames(12)
+		Input.action_press("move_left")
+		Input.action_press("jump")
+		for i in range(700):
+			await frames(1)
+			if player.is_on_wall() and player.wall_lock_left <= 0:
+				Input.action_release("jump")
+				await frames(1)
+				Input.action_press("jump")
+				Input.action_release("move_left")
+				Input.action_release("move_right")
+				Input.action_press("move_right" if player.get_wall_normal().x > 0 else "move_left")
+			if player.position.y < -85:
+				break
+		Input.action_release("move_left")
+		Input.action_press("move_right")
+	var jumps: Array = [875.0, 2570.0, 7060.0] if route == "gallery" else ([3170.0, 5975.0, 7060.0, 10570.0] if route == "canopy" else [3460.0])
+	var next_jump := 0
+	var trace: Array = []
+	for i in range(6000):
+		var x: float = player.position.x
+		if route == "reservoir" and x > 900 and x < 8800:
+			Input.action_press("slide")
+		else:
+			Input.action_release("slide")
+		if player.is_on_floor():
+			Input.action_release("jump")
+			if next_jump < jumps.size() and x >= jumps[next_jump]:
+				Input.action_press("jump")
+				next_jump += 1
+		await frames(1)
+		if i % 120 == 0:
+			trace.append([snappedf(player.position.x, 1), snappedf(player.position.y, 1)])
+		if lab.finished or (next_jump > 0 and player.position.x < 200):
+			break
+	if not lab.finished:
+		print(route, " TRACE: ", trace)
+
+	var expected_y: float = 1980.0 if route == "reservoir" else (-720.0 if route == "canopy" else 480.0)
+	var used_route := false
+	for sample in lab.samples:
+		if absf(float(sample.x) - 6500.0) < 40 and absf(float(sample.y) - expected_y) < 50:
+			used_route = true
+	check(used_route, route + " traversal actually uses its own elevation through the shared atrium")

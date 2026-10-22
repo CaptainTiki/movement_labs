@@ -17,11 +17,11 @@ border_color = Color(0.22, 0.38, 0.4, 1)
 
 [node name="MovementLab02" type="Node2D"]
 script = ExtResource("1")
-course_id = "movement_lab_02_v1"
-replay_path = "user://movement_lab_02_v1_last_run.json"
+course_id = "movement_lab_02_v2"
+replay_path = "user://movement_lab_02_v2_last_run.json"
 max_run_seconds = 900.0
-fall_y = 6200.0
-finish_y = 5300.0
+fall_y = 2600.0
+finish_y = -750.0
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -10
@@ -32,1466 +32,743 @@ script = ExtResource("3")
 [node name="Discoveries" type="Node2D" parent="."]
 [node name="RestStops" type="Node2D" parent="."]
 
-[node name="Basin1Descent" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin1Descent"]
-polygon = PackedVector2Array(-200, 500, 800, 500, 2200, 1100, 3000, 1100, 3000, 1148, 2200, 1148, 800, 548, -200, 548)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin1Descent"]
+[node name="StartCourt" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/StartCourt"]
+polygon = PackedVector2Array(-200, 500, 900, 500, 900, 548, -200, 548)
+[node name="Fill" type="Polygon2D" parent="Terrain/StartCourt"]
 color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(-200, 500, 800, 500, 2200, 1100, 3000, 1100, 3000, 1148, 2200, 1148, 800, 548, -200, 548)
-[node name="Edge" type="Line2D" parent="Terrain/Basin1Descent"]
-points = PackedVector2Array(-200, 500, 800, 500, 2200, 1100, 3000, 1100)
+polygon = PackedVector2Array(-200, 500, 900, 500, 900, 548, -200, 548)
+[node name="Edge" type="Line2D" parent="Terrain/StartCourt"]
+points = PackedVector2Array(-200, 500, 900, 500)
 width = 3.0
 default_color = Color(0.45, 0.76, 0.71, 1)
 
-[node name="Basin1Exit" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin1Exit"]
-polygon = PackedVector2Array(3180, 1100, 3900, 1100, 5100, 1450, 5600, 1450, 5600, 1498, 5100, 1498, 3900, 1148, 3180, 1148)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin1Exit"]
+[node name="WestGallery" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestGallery"]
+polygon = PackedVector2Array(1100, 500, 2600, 500, 2600, 548, 1100, 548)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestGallery"]
 color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(3180, 1100, 3900, 1100, 5100, 1450, 5600, 1450, 5600, 1498, 5100, 1498, 3900, 1148, 3180, 1148)
-[node name="Edge" type="Line2D" parent="Terrain/Basin1Exit"]
-points = PackedVector2Array(3180, 1100, 3900, 1100, 5100, 1450, 5600, 1450)
+polygon = PackedVector2Array(1100, 500, 2600, 500, 2600, 548, 1100, 548)
+[node name="Edge" type="Line2D" parent="Terrain/WestGallery"]
+points = PackedVector2Array(1100, 500, 2600, 500)
 width = 3.0
 default_color = Color(0.45, 0.76, 0.71, 1)
 
-[node name="Basin1Tunnel" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin1Tunnel"]
-polygon = PackedVector2Array(2470, 1050, 2730, 1050, 2730, 1072, 2470, 1072)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin1Tunnel"]
+[node name="CentralGallery" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/CentralGallery"]
+polygon = PackedVector2Array(2780, 500, 7090, 500, 7090, 548, 2780, 548)
+[node name="Fill" type="Polygon2D" parent="Terrain/CentralGallery"]
+color = Color(0.12, 0.26, 0.29, 1)
+polygon = PackedVector2Array(2780, 500, 7090, 500, 7090, 548, 2780, 548)
+[node name="Edge" type="Line2D" parent="Terrain/CentralGallery"]
+points = PackedVector2Array(2780, 500, 7090, 500)
+width = 3.0
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+[node name="EastGallery" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/EastGallery"]
+polygon = PackedVector2Array(7210, 500, 8400, 500, 9600, 900, 10000, 900, 10000, 948, 9600, 948, 8400, 548, 7210, 548)
+[node name="Fill" type="Polygon2D" parent="Terrain/EastGallery"]
+color = Color(0.12, 0.26, 0.29, 1)
+polygon = PackedVector2Array(7210, 500, 8400, 500, 9600, 900, 10000, 900, 10000, 948, 9600, 948, 8400, 548, 7210, 548)
+[node name="Edge" type="Line2D" parent="Terrain/EastGallery"]
+points = PackedVector2Array(7210, 500, 8400, 500, 9600, 900, 10000, 900)
+width = 3.0
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+[node name="WestChute" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestChute"]
+polygon = PackedVector2Array(900, 650, 2400, 1350, 3600, 1350, 3600, 1398, 2400, 1398, 900, 698)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestChute"]
+color = Color(0.12, 0.26, 0.29, 1)
+polygon = PackedVector2Array(900, 650, 2400, 1350, 3600, 1350, 3600, 1398, 2400, 1398, 900, 698)
+[node name="Edge" type="Line2D" parent="Terrain/WestChute"]
+points = PackedVector2Array(900, 650, 2400, 1350, 3600, 1350)
+width = 3.0
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+[node name="ReservoirBowl" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReservoirBowl"]
+polygon = PackedVector2Array(3800, 1350, 5200, 2000, 9000, 2000, 9000, 2048, 5200, 2048, 3800, 1398)
+[node name="Fill" type="Polygon2D" parent="Terrain/ReservoirBowl"]
+color = Color(0.12, 0.26, 0.29, 1)
+polygon = PackedVector2Array(3800, 1350, 5200, 2000, 9000, 2000, 9000, 2048, 5200, 2048, 3800, 1398)
+[node name="Edge" type="Line2D" parent="Terrain/ReservoirBowl"]
+points = PackedVector2Array(3800, 1350, 5200, 2000, 9000, 2000)
+width = 3.0
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+[node name="EastBank" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/EastBank"]
+polygon = PackedVector2Array(9000, 2000, 14000, -800, 16300, -800, 16300, -752, 14000, -752, 9000, 2048)
+[node name="Fill" type="Polygon2D" parent="Terrain/EastBank"]
+color = Color(0.12, 0.26, 0.29, 1)
+polygon = PackedVector2Array(9000, 2000, 14000, -800, 16300, -800, 16300, -752, 14000, -752, 9000, 2048)
+[node name="Edge" type="Line2D" parent="Terrain/EastBank"]
+points = PackedVector2Array(9000, 2000, 14000, -800, 16300, -800)
+width = 3.0
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+[node name="UnderbridgePocket" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/UnderbridgePocket"]
+polygon = PackedVector2Array(3450, 1580, 3990, 1580, 3990, 1612, 3450, 1612)
+[node name="Fill" type="Polygon2D" parent="Terrain/UnderbridgePocket"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(3450, 1580, 3990, 1580, 3990, 1612, 3450, 1612)
+[node name="Edge" type="Line2D" parent="Terrain/UnderbridgePocket"]
+points = PackedVector2Array(3450, 1580, 3990, 1580)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="PocketStep1" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/PocketStep1"]
+polygon = PackedVector2Array(3680, 1485, 3760, 1485, 3760, 1507, 3680, 1507)
+[node name="Fill" type="Polygon2D" parent="Terrain/PocketStep1"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(3680, 1485, 3760, 1485, 3760, 1507, 3680, 1507)
+[node name="Edge" type="Line2D" parent="Terrain/PocketStep1"]
+points = PackedVector2Array(3680, 1485, 3760, 1485)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="PocketStep2" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/PocketStep2"]
+polygon = PackedVector2Array(3610, 1400, 3670, 1400, 3670, 1422, 3610, 1422)
+[node name="Fill" type="Polygon2D" parent="Terrain/PocketStep2"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(3610, 1400, 3670, 1400, 3670, 1422, 3610, 1422)
+[node name="Edge" type="Line2D" parent="Terrain/PocketStep2"]
+points = PackedVector2Array(3610, 1400, 3670, 1400)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="ChuteUnderpass" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ChuteUnderpass"]
+polygon = PackedVector2Array(2420, 1300, 2550, 1300, 2550, 1322, 2420, 1322)
+[node name="Fill" type="Polygon2D" parent="Terrain/ChuteUnderpass"]
 color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(2470, 1050, 2730, 1050, 2730, 1072, 2470, 1072)
-[node name="Edge" type="Line2D" parent="Terrain/Basin1Tunnel"]
-points = PackedVector2Array(2470, 1050, 2730, 1050)
+polygon = PackedVector2Array(2420, 1300, 2550, 1300, 2550, 1322, 2420, 1322)
+[node name="Edge" type="Line2D" parent="Terrain/ChuteUnderpass"]
+points = PackedVector2Array(2420, 1300, 2550, 1300)
 width = 3.0
 default_color = Color(0.65, 0.65, 0.95, 1)
 
-[node name="Basin1" type="Label" parent="CourseLabels"]
-offset_left = 100.0
-offset_top = 330.0
-text = "01  THE FORK\nLow: carry speed  /  High: find the overlook"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="TunnelHint0" type="Label" parent="CourseLabels"]
-offset_left = 2300.0
-offset_top = 930.0
-text = "SLIDE UNDER  /  JUMP OVER"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="GapHint0" type="Label" parent="CourseLabels"]
-offset_left = 2800.0
-offset_top = 930.0
-text = "GAP  →  REJOIN\nMissed it? The amber ledge catches you."
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Recovery0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Recovery0"]
-polygon = PackedVector2Array(2800, 1300, 3390, 1300, 3390, 1348, 2800, 1348)
-[node name="Fill" type="Polygon2D" parent="Terrain/Recovery0"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(2800, 1300, 3390, 1300, 3390, 1348, 2800, 1348)
-[node name="Edge" type="Line2D" parent="Terrain/Recovery0"]
-points = PackedVector2Array(2800, 1300, 3390, 1300)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="RecoveryStep0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/RecoveryStep0"]
-polygon = PackedVector2Array(3060, 1205, 3120, 1205, 3120, 1229, 3060, 1229)
-[node name="Fill" type="Polygon2D" parent="Terrain/RecoveryStep0"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(3060, 1205, 3120, 1205, 3120, 1229, 3060, 1229)
-[node name="Edge" type="Line2D" parent="Terrain/RecoveryStep0"]
-points = PackedVector2Array(3060, 1205, 3120, 1205)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="1_Recovery" type="Marker2D" parent="Discoveries"]
-position = Vector2(2990, 1270)
-
-[node name="ShaftLeft0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftLeft0"]
+[node name="WestShaftLeft" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestShaftLeft"]
 polygon = PackedVector2Array(620, -60, 650, -60, 650, 430, 620, 430)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftLeft0"]
+[node name="Fill" type="Polygon2D" parent="Terrain/WestShaftLeft"]
 color = Color(0.19, 0.23, 0.36, 1)
 polygon = PackedVector2Array(620, -60, 650, -60, 650, 430, 620, 430)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftLeft0"]
+[node name="Edge" type="Line2D" parent="Terrain/WestShaftLeft"]
 points = PackedVector2Array(620, -60, 650, -60)
 width = 3.0
 default_color = Color(0.65, 0.65, 0.95, 1)
 
-[node name="ShaftRight0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftRight0"]
+[node name="WestShaftRight" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestShaftRight"]
 polygon = PackedVector2Array(770, -60, 800, -60, 800, 430, 770, 430)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftRight0"]
+[node name="Fill" type="Polygon2D" parent="Terrain/WestShaftRight"]
 color = Color(0.19, 0.23, 0.36, 1)
 polygon = PackedVector2Array(770, -60, 800, -60, 800, 430, 770, 430)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftRight0"]
+[node name="Edge" type="Line2D" parent="Terrain/WestShaftRight"]
 points = PackedVector2Array(770, -60, 800, -60)
 width = 3.0
 default_color = Color(0.65, 0.65, 0.95, 1)
 
-[node name="SkyLaunch0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyLaunch0"]
-polygon = PackedVector2Array(800, -60, 1050, -60, 2100, 420, 2100, 468, 1050, -12, 800, -12)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyLaunch0"]
+[node name="WestOverlook" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestOverlook"]
+polygon = PackedVector2Array(800, -60, 1500, -60, 2200, -400, 3200, -400, 3200, -368, 2200, -368, 1500, -28, 800, -28)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestOverlook"]
 color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(800, -60, 1050, -60, 2100, 420, 2100, 468, 1050, -12, 800, -12)
-[node name="Edge" type="Line2D" parent="Terrain/SkyLaunch0"]
-points = PackedVector2Array(800, -60, 1050, -60, 2100, 420)
+polygon = PackedVector2Array(800, -60, 1500, -60, 2200, -400, 3200, -400, 3200, -368, 2200, -368, 1500, -28, 800, -28)
+[node name="Edge" type="Line2D" parent="Terrain/WestOverlook"]
+points = PackedVector2Array(800, -60, 1500, -60, 2200, -400, 3200, -400)
 width = 3.0
 default_color = Color(0.65, 0.65, 0.95, 1)
 
-[node name="ShaftHint0" type="Label" parent="CourseLabels"]
-offset_left = 450.0
-offset_top = 405.0
-text = "↑ WALL JUMP\nHold toward wall to slow your fall"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
+[node name="CanopyWest" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/CanopyWest"]
+polygon = PackedVector2Array(3380, -400, 4100, -400, 4900, -700, 6000, -700, 6000, -668, 4900, -668, 4100, -368, 3380, -368)
+[node name="Fill" type="Polygon2D" parent="Terrain/CanopyWest"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(3380, -400, 4100, -400, 4900, -700, 6000, -700, 6000, -668, 4900, -668, 4100, -368, 3380, -368)
+[node name="Edge" type="Line2D" parent="Terrain/CanopyWest"]
+points = PackedVector2Array(3380, -400, 4100, -400, 4900, -700, 6000, -700)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
 
-[node name="1_Summit" type="Marker2D" parent="Discoveries"]
-position = Vector2(930, -90)
+[node name="CanopyBridge" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/CanopyBridge"]
+polygon = PackedVector2Array(6200, -700, 7090, -700, 7090, -668, 6200, -668)
+[node name="Fill" type="Polygon2D" parent="Terrain/CanopyBridge"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(6200, -700, 7090, -700, 7090, -668, 6200, -668)
+[node name="Edge" type="Line2D" parent="Terrain/CanopyBridge"]
+points = PackedVector2Array(6200, -700, 7090, -700)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
 
-[node name="Basin1" type="Marker2D" parent="RestStops"]
+[node name="CanopyEast" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/CanopyEast"]
+polygon = PackedVector2Array(7240, -700, 8400, -700, 9600, -200, 10600, -200, 10600, -168, 9600, -168, 8400, -668, 7240, -668)
+[node name="Fill" type="Polygon2D" parent="Terrain/CanopyEast"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(7240, -700, 8400, -700, 9600, -200, 10600, -200, 10600, -168, 9600, -168, 8400, -668, 7240, -668)
+[node name="Edge" type="Line2D" parent="Terrain/CanopyEast"]
+points = PackedVector2Array(7240, -700, 8400, -700, 9600, -200, 10600, -200)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="EastLaunch" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/EastLaunch"]
+polygon = PackedVector2Array(10800, -200, 12800, -580, 12800, -548, 10800, -168)
+[node name="Fill" type="Polygon2D" parent="Terrain/EastLaunch"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(10800, -200, 12800, -580, 12800, -548, 10800, -168)
+[node name="Edge" type="Line2D" parent="Terrain/EastLaunch"]
+points = PackedVector2Array(10800, -200, 12800, -580)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="AtriumLowerLeft" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/AtriumLowerLeft"]
+polygon = PackedVector2Array(7060, 560, 7090, 560, 7090, 1930, 7060, 1930)
+[node name="Fill" type="Polygon2D" parent="Terrain/AtriumLowerLeft"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(7060, 560, 7090, 560, 7090, 1930, 7060, 1930)
+[node name="Edge" type="Line2D" parent="Terrain/AtriumLowerLeft"]
+points = PackedVector2Array(7060, 560, 7090, 560)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="AtriumLowerRight" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/AtriumLowerRight"]
+polygon = PackedVector2Array(7210, 560, 7240, 560, 7240, 1930, 7210, 1930)
+[node name="Fill" type="Polygon2D" parent="Terrain/AtriumLowerRight"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(7210, 560, 7240, 560, 7240, 1930, 7210, 1930)
+[node name="Edge" type="Line2D" parent="Terrain/AtriumLowerRight"]
+points = PackedVector2Array(7210, 560, 7240, 560)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="AtriumUpperLeft" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/AtriumUpperLeft"]
+polygon = PackedVector2Array(7060, -700, 7090, -700, 7090, 430, 7060, 430)
+[node name="Fill" type="Polygon2D" parent="Terrain/AtriumUpperLeft"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(7060, -700, 7090, -700, 7090, 430, 7060, 430)
+[node name="Edge" type="Line2D" parent="Terrain/AtriumUpperLeft"]
+points = PackedVector2Array(7060, -700, 7090, -700)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="AtriumUpperRight" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/AtriumUpperRight"]
+polygon = PackedVector2Array(7210, -700, 7240, -700, 7240, 430, 7210, 430)
+[node name="Fill" type="Polygon2D" parent="Terrain/AtriumUpperRight"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(7210, -700, 7240, -700, 7240, 430, 7210, 430)
+[node name="Edge" type="Line2D" parent="Terrain/AtriumUpperRight"]
+points = PackedVector2Array(7210, -700, 7240, -700)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="MezzanineStep" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/MezzanineStep"]
+polygon = PackedVector2Array(4100, 420, 4240, 420, 4240, 442, 4100, 442)
+[node name="Fill" type="Polygon2D" parent="Terrain/MezzanineStep"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(4100, 420, 4240, 420, 4240, 442, 4100, 442)
+[node name="Edge" type="Line2D" parent="Terrain/MezzanineStep"]
+points = PackedVector2Array(4100, 420, 4240, 420)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="MezzanineRamp" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/MezzanineRamp"]
+polygon = PackedVector2Array(4300, 340, 5850, -380, 5850, -348, 4300, 372)
+[node name="Fill" type="Polygon2D" parent="Terrain/MezzanineRamp"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(4300, 340, 5850, -380, 5850, -348, 4300, 372)
+[node name="Edge" type="Line2D" parent="Terrain/MezzanineRamp"]
+points = PackedVector2Array(4300, 340, 5850, -380)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="MezzanineTurn1" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/MezzanineTurn1"]
+polygon = PackedVector2Array(5950, -470, 6030, -470, 6030, -448, 5950, -448)
+[node name="Fill" type="Polygon2D" parent="Terrain/MezzanineTurn1"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(5950, -470, 6030, -470, 6030, -448, 5950, -448)
+[node name="Edge" type="Line2D" parent="Terrain/MezzanineTurn1"]
+points = PackedVector2Array(5950, -470, 6030, -470)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="MezzanineTurn2" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/MezzanineTurn2"]
+polygon = PackedVector2Array(6100, -560, 6180, -560, 6180, -538, 6100, -538)
+[node name="Fill" type="Polygon2D" parent="Terrain/MezzanineTurn2"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(6100, -560, 6180, -560, 6180, -538, 6100, -538)
+[node name="Edge" type="Line2D" parent="Terrain/MezzanineTurn2"]
+points = PackedVector2Array(6100, -560, 6180, -560)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="MezzanineTurn3" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/MezzanineTurn3"]
+polygon = PackedVector2Array(6020, -650, 6100, -650, 6100, -628, 6020, -628)
+[node name="Fill" type="Polygon2D" parent="Terrain/MezzanineTurn3"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(6020, -650, 6100, -650, 6100, -628, 6020, -628)
+[node name="Edge" type="Line2D" parent="Terrain/MezzanineTurn3"]
+points = PackedVector2Array(6020, -650, 6100, -650)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="WestReturnStep" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestReturnStep"]
+polygon = PackedVector2Array(5000, 1810, 5130, 1810, 5130, 1832, 5000, 1832)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestReturnStep"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(5000, 1810, 5130, 1810, 5130, 1832, 5000, 1832)
+[node name="Edge" type="Line2D" parent="Terrain/WestReturnStep"]
+points = PackedVector2Array(5000, 1810, 5130, 1810)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="WestReturnRamp" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestReturnRamp"]
+polygon = PackedVector2Array(3900, 1180, 4800, 1630, 4800, 1662, 3900, 1212)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestReturnRamp"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(3900, 1180, 4800, 1630, 4800, 1662, 3900, 1212)
+[node name="Edge" type="Line2D" parent="Terrain/WestReturnRamp"]
+points = PackedVector2Array(3900, 1180, 4800, 1630)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="WestReturnMiddle" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestReturnMiddle"]
+polygon = PackedVector2Array(4840, 1720, 4940, 1720, 4940, 1742, 4840, 1742)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestReturnMiddle"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(4840, 1720, 4940, 1720, 4940, 1742, 4840, 1742)
+[node name="Edge" type="Line2D" parent="Terrain/WestReturnMiddle"]
+points = PackedVector2Array(4840, 1720, 4940, 1720)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="WestReturnLanding" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestReturnLanding"]
+polygon = PackedVector2Array(3550, 1090, 3770, 1090, 3770, 1114, 3550, 1114)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestReturnLanding"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(3550, 1090, 3770, 1090, 3770, 1114, 3550, 1114)
+[node name="Edge" type="Line2D" parent="Terrain/WestReturnLanding"]
+points = PackedVector2Array(3550, 1090, 3770, 1090)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="ReturnShaftLeft" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnShaftLeft"]
+polygon = PackedVector2Array(2580, 500, 2610, 500, 2610, 1290, 2580, 1290)
+[node name="Fill" type="Polygon2D" parent="Terrain/ReturnShaftLeft"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(2580, 500, 2610, 500, 2610, 1290, 2580, 1290)
+[node name="Edge" type="Line2D" parent="Terrain/ReturnShaftLeft"]
+points = PackedVector2Array(2580, 500, 2610, 500)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="ReturnShaftRight" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnShaftRight"]
+polygon = PackedVector2Array(2730, 500, 2760, 500, 2760, 1290, 2730, 1290)
+[node name="Fill" type="Polygon2D" parent="Terrain/ReturnShaftRight"]
+color = Color(0.25, 0.23, 0.18, 1)
+polygon = PackedVector2Array(2730, 500, 2760, 500, 2760, 1290, 2730, 1290)
+[node name="Edge" type="Line2D" parent="Terrain/ReturnShaftRight"]
+points = PackedVector2Array(2730, 500, 2760, 500)
+width = 3.0
+default_color = Color(0.90, 0.68, 0.38, 1)
+
+[node name="HangingGardenA" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/HangingGardenA"]
+polygon = PackedVector2Array(3030, 120, 3200, 120, 3200, 146, 3030, 146)
+[node name="Fill" type="Polygon2D" parent="Terrain/HangingGardenA"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(3030, 120, 3200, 120, 3200, 146, 3030, 146)
+[node name="Edge" type="Line2D" parent="Terrain/HangingGardenA"]
+points = PackedVector2Array(3030, 120, 3200, 120)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="HangingGardenB" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/HangingGardenB"]
+polygon = PackedVector2Array(3270, 35, 3420, 35, 3420, 61, 3270, 61)
+[node name="Fill" type="Polygon2D" parent="Terrain/HangingGardenB"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(3270, 35, 3420, 35, 3420, 61, 3270, 61)
+[node name="Edge" type="Line2D" parent="Terrain/HangingGardenB"]
+points = PackedVector2Array(3270, 35, 3420, 35)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="HangingGardenC" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/HangingGardenC"]
+polygon = PackedVector2Array(3490, -50, 3650, -50, 3650, -24, 3490, -24)
+[node name="Fill" type="Polygon2D" parent="Terrain/HangingGardenC"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(3490, -50, 3650, -50, 3650, -24, 3490, -24)
+[node name="Edge" type="Line2D" parent="Terrain/HangingGardenC"]
+points = PackedVector2Array(3490, -50, 3650, -50)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="GardenEntry" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/GardenEntry"]
+polygon = PackedVector2Array(2840, 415, 2970, 415, 2970, 441, 2840, 441)
+[node name="Fill" type="Polygon2D" parent="Terrain/GardenEntry"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(2840, 415, 2970, 415, 2970, 441, 2840, 441)
+[node name="Edge" type="Line2D" parent="Terrain/GardenEntry"]
+points = PackedVector2Array(2840, 415, 2970, 415)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="GardenStep" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/GardenStep"]
+polygon = PackedVector2Array(3000, 330, 3120, 330, 3120, 356, 3000, 356)
+[node name="Fill" type="Polygon2D" parent="Terrain/GardenStep"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(3000, 330, 3120, 330, 3120, 356, 3000, 356)
+[node name="Edge" type="Line2D" parent="Terrain/GardenStep"]
+points = PackedVector2Array(3000, 330, 3120, 330)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="GardenTurn" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/GardenTurn"]
+polygon = PackedVector2Array(2840, 235, 2970, 235, 2970, 261, 2840, 261)
+[node name="Fill" type="Polygon2D" parent="Terrain/GardenTurn"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(2840, 235, 2970, 235, 2970, 261, 2840, 261)
+[node name="Edge" type="Line2D" parent="Terrain/GardenTurn"]
+points = PackedVector2Array(2840, 235, 2970, 235)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="AtriumPerch" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/AtriumPerch"]
+polygon = PackedVector2Array(6550, 1100, 6760, 1100, 6760, 1126, 6550, 1126)
+[node name="Fill" type="Polygon2D" parent="Terrain/AtriumPerch"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(6550, 1100, 6760, 1100, 6760, 1126, 6550, 1126)
+[node name="Edge" type="Line2D" parent="Terrain/AtriumPerch"]
+points = PackedVector2Array(6550, 1100, 6760, 1100)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="AtriumApproach" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/AtriumApproach"]
+polygon = PackedVector2Array(6780, 1190, 6930, 1190, 6930, 1216, 6780, 1216)
+[node name="Fill" type="Polygon2D" parent="Terrain/AtriumApproach"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(6780, 1190, 6930, 1190, 6930, 1216, 6780, 1216)
+[node name="Edge" type="Line2D" parent="Terrain/AtriumApproach"]
+points = PackedVector2Array(6780, 1190, 6930, 1190)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="EastBalcony" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/EastBalcony"]
+polygon = PackedVector2Array(8500, 100, 8750, 100, 8750, 126, 8500, 126)
+[node name="Fill" type="Polygon2D" parent="Terrain/EastBalcony"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(8500, 100, 8750, 100, 8750, 126, 8500, 126)
+[node name="Edge" type="Line2D" parent="Terrain/EastBalcony"]
+points = PackedVector2Array(8500, 100, 8750, 100)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="EastBalconyStep" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/EastBalconyStep"]
+polygon = PackedVector2Array(8830, 190, 9010, 190, 9010, 216, 8830, 216)
+[node name="Fill" type="Polygon2D" parent="Terrain/EastBalconyStep"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(8830, 190, 9010, 190, 9010, 216, 8830, 216)
+[node name="Edge" type="Line2D" parent="Terrain/EastBalconyStep"]
+points = PackedVector2Array(8830, 190, 9010, 190)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="EastBalconyLow" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/EastBalconyLow"]
+polygon = PackedVector2Array(9080, 280, 9280, 280, 9280, 306, 9080, 306)
+[node name="Fill" type="Polygon2D" parent="Terrain/EastBalconyLow"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(9080, 280, 9280, 280, 9280, 306, 9080, 306)
+[node name="Edge" type="Line2D" parent="Terrain/EastBalconyLow"]
+points = PackedVector2Array(9080, 280, 9280, 280)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="ReservoirIsland" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReservoirIsland"]
+polygon = PackedVector2Array(5800, 1790, 6080, 1790, 6080, 1816, 5800, 1816)
+[node name="Fill" type="Polygon2D" parent="Terrain/ReservoirIsland"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(5800, 1790, 6080, 1790, 6080, 1816, 5800, 1816)
+[node name="Edge" type="Line2D" parent="Terrain/ReservoirIsland"]
+points = PackedVector2Array(5800, 1790, 6080, 1790)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="ReservoirIslandStep" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReservoirIslandStep"]
+polygon = PackedVector2Array(6180, 1900, 6330, 1900, 6330, 1926, 6180, 1926)
+[node name="Fill" type="Polygon2D" parent="Terrain/ReservoirIslandStep"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(6180, 1900, 6330, 1900, 6330, 1926, 6180, 1926)
+[node name="Edge" type="Line2D" parent="Terrain/ReservoirIslandStep"]
+points = PackedVector2Array(6180, 1900, 6330, 1900)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="WestLookback" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestLookback"]
+polygon = PackedVector2Array(300, -120, 470, -120, 470, -94, 300, -94)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestLookback"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(300, -120, 470, -120, 470, -94, 300, -94)
+[node name="Edge" type="Line2D" parent="Terrain/WestLookback"]
+points = PackedVector2Array(300, -120, 470, -120)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="WestLookbackStep" type="StaticBody2D" parent="Terrain"]
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/WestLookbackStep"]
+polygon = PackedVector2Array(90, -210, 230, -210, 230, -184, 90, -184)
+[node name="Fill" type="Polygon2D" parent="Terrain/WestLookbackStep"]
+color = Color(0.19, 0.23, 0.36, 1)
+polygon = PackedVector2Array(90, -210, 230, -210, 230, -184, 90, -184)
+[node name="Edge" type="Line2D" parent="Terrain/WestLookbackStep"]
+points = PackedVector2Array(90, -210, 230, -210)
+width = 3.0
+default_color = Color(0.65, 0.65, 0.95, 1)
+
+[node name="WestLookback" type="Marker2D" parent="Discoveries"]
+position = Vector2(150, -238)
+
+[node name="WestPerch" type="Marker2D" parent="Discoveries"]
+position = Vector2(380, -148)
+
+[node name="Overlook" type="Marker2D" parent="Discoveries"]
+position = Vector2(1250, -88)
+
+[node name="SkyWest" type="Marker2D" parent="Discoveries"]
+position = Vector2(2850, -428)
+
+[node name="CanopyRise" type="Marker2D" parent="Discoveries"]
+position = Vector2(4650, -634)
+
+[node name="CanopyGap" type="Marker2D" parent="Discoveries"]
+position = Vector2(5900, -728)
+
+[node name="Mezzanine" type="Marker2D" parent="Discoveries"]
+position = Vector2(5550, -269)
+
+[node name="MezzanineTurn" type="Marker2D" parent="Discoveries"]
+position = Vector2(6140, -588)
+
+[node name="CanopyBridge" type="Marker2D" parent="Discoveries"]
+position = Vector2(6600, -728)
+
+[node name="AtriumCrown" type="Marker2D" parent="Discoveries"]
+position = Vector2(7900, -728)
+
+[node name="EastCanopy" type="Marker2D" parent="Discoveries"]
+position = Vector2(10000, -228)
+
+[node name="LaunchLip" type="Marker2D" parent="Discoveries"]
+position = Vector2(12650, -580)
+
+[node name="GardenA" type="Marker2D" parent="Discoveries"]
+position = Vector2(3120, 92)
+
+[node name="GardenB" type="Marker2D" parent="Discoveries"]
+position = Vector2(3350, 7)
+
+[node name="GardenC" type="Marker2D" parent="Discoveries"]
+position = Vector2(3570, -78)
+
+[node name="GalleryWest" type="Marker2D" parent="Discoveries"]
+position = Vector2(1800, 472)
+
+[node name="GalleryJunction" type="Marker2D" parent="Discoveries"]
+position = Vector2(4550, 472)
+
+[node name="AtriumMiddle" type="Marker2D" parent="Discoveries"]
+position = Vector2(7700, 472)
+
+[node name="GalleryEast" type="Marker2D" parent="Discoveries"]
+position = Vector2(9750, 872)
+
+[node name="Balcony" type="Marker2D" parent="Discoveries"]
+position = Vector2(8620, 72)
+
+[node name="BalconyLower" type="Marker2D" parent="Discoveries"]
+position = Vector2(9180, 252)
+
+[node name="UnderpassRoof" type="Marker2D" parent="Discoveries"]
+position = Vector2(2490, 1272)
+
+[node name="Underbridge" type="Marker2D" parent="Discoveries"]
+position = Vector2(3560, 1552)
+
+[node name="ReturnLanding" type="Marker2D" parent="Discoveries"]
+position = Vector2(3640, 1062)
+
+[node name="ReturnRamp" type="Marker2D" parent="Discoveries"]
+position = Vector2(4510, 1457)
+
+[node name="ReservoirIsland" type="Marker2D" parent="Discoveries"]
+position = Vector2(5930, 1762)
+
+[node name="ReservoirFloor" type="Marker2D" parent="Discoveries"]
+position = Vector2(8250, 1972)
+
+[node name="AtriumPerch" type="Marker2D" parent="Discoveries"]
+position = Vector2(6650, 1072)
+
+[node name="AtriumApproach" type="Marker2D" parent="Discoveries"]
+position = Vector2(6850, 1162)
+
+[node name="EastBank" type="Marker2D" parent="Discoveries"]
+position = Vector2(11500, 572)
+
+[node name="HomeStretch" type="Marker2D" parent="Discoveries"]
+position = Vector2(14900, -828)
+
+[node name="Start" type="Marker2D" parent="RestStops"]
 position = Vector2(180, 478)
 
-[node name="SkyIsland0_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland0_0"]
-polygon = PackedVector2Array(2220, 420, 2380, 420, 2380, 448, 2220, 448)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland0_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(2220, 420, 2380, 420, 2380, 448, 2220, 448)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland0_0"]
-points = PackedVector2Array(2220, 420, 2380, 420)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
+[node name="Gallery" type="Marker2D" parent="RestStops"]
+position = Vector2(3900, 478)
 
-[node name="1_Island1" type="Marker2D" parent="Discoveries"]
-position = Vector2(2280, 392)
+[node name="Reservoir" type="Marker2D" parent="RestStops"]
+position = Vector2(6800, 1978)
 
-[node name="SkyIsland0_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland0_1"]
-polygon = PackedVector2Array(2455, 570, 2615, 570, 2615, 598, 2455, 598)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland0_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(2455, 570, 2615, 570, 2615, 598, 2455, 598)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland0_1"]
-points = PackedVector2Array(2455, 570, 2615, 570)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
+[node name="Canopy" type="Marker2D" parent="RestStops"]
+position = Vector2(7900, -722)
 
-[node name="1_Island2" type="Marker2D" parent="Discoveries"]
-position = Vector2(2515, 542)
+[node name="EastBank" type="Marker2D" parent="RestStops"]
+position = Vector2(14080, -822)
 
-[node name="SkyIsland0_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland0_2"]
-polygon = PackedVector2Array(2690, 570, 2850, 570, 2850, 598, 2690, 598)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland0_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(2690, 570, 2850, 570, 2850, 598, 2690, 598)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland0_2"]
-points = PackedVector2Array(2690, 570, 2850, 570)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
+[node name="StartHelp" type="Label" parent="CourseLabels"]
+offset_left = 70.0
+offset_top = 100.0
+text = "THE RESERVOIR\nOne space. Find your own line.\nM: map   E: explore   1 / 2: change lab"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="1_Island3" type="Marker2D" parent="Discoveries"]
-position = Vector2(2750, 542)
+[node name="FirstChoice" type="Label" parent="CourseLabels"]
+offset_left = 340.0
+offset_top = 300.0
+text = "UP: overlook   /   JUMP: gallery\nDROP: the long downhill chute"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="SkyIsland0_3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland0_3"]
-polygon = PackedVector2Array(2925, 720, 3085, 720, 3085, 748, 2925, 748)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland0_3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(2925, 720, 3085, 720, 3085, 748, 2925, 748)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland0_3"]
-points = PackedVector2Array(2925, 720, 3085, 720)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
+[node name="WestGallerySign" type="Label" parent="CourseLabels"]
+offset_left = 1250.0
+offset_top = 350.0
+text = "GALLERY  →  CENTRAL ATRIUM\nDrop through a gap to change routes"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="1_Island4" type="Marker2D" parent="Discoveries"]
-position = Vector2(2985, 692)
+[node name="ChuteSign" type="Label" parent="CourseLabels"]
+offset_left = 1700.0
+offset_top = 950.0
+text = "THE CHUTE\nSlide to build speed beneath the gallery"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="SkyIsland0_4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland0_4"]
-polygon = PackedVector2Array(3160, 720, 3320, 720, 3320, 748, 3160, 748)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland0_4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(3160, 720, 3320, 720, 3320, 748, 3160, 748)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland0_4"]
-points = PackedVector2Array(3160, 720, 3320, 720)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
+[node name="UnderpassSign" type="Label" parent="CourseLabels"]
+offset_left = 2370.0
+offset_top = 1170.0
+text = "UNDER OR OVER"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="1_Island5" type="Marker2D" parent="Discoveries"]
-position = Vector2(3220, 692)
+[node name="CanopySign" type="Label" parent="CourseLabels"]
+offset_left = 3950.0
+offset_top = -580.0
+text = "CANOPY  →\nThe gallery and reservoir are below you"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="SkyRejoin0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyRejoin0"]
-polygon = PackedVector2Array(3400, 850, 3700, 850, 4070, 1000, 4070, 1032, 3700, 882, 3400, 882)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyRejoin0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(3400, 850, 3700, 850, 4070, 1000, 4070, 1032, 3700, 882, 3400, 882)
-[node name="Edge" type="Line2D" parent="Terrain/SkyRejoin0"]
-points = PackedVector2Array(3400, 850, 3700, 850, 4070, 1000)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
+[node name="MezzanineSign" type="Label" parent="CourseLabels"]
+offset_left = 4040.0
+offset_top = 185.0
+text = "↑ MEZZANINE\nA running climb to the canopy"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="1_Rejoin" type="Marker2D" parent="Discoveries"]
-position = Vector2(3600, 822)
+[node name="AtriumSign" type="Label" parent="CourseLabels"]
+offset_left = 7280.0
+offset_top = 310.0
+text = "CENTRAL ATRIUM\n↑ canopy   ↓ reservoir   → east gallery"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="ReturnStep0_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep0_0"]
-polygon = PackedVector2Array(3540, 1010, 3645, 1010, 3645, 1032, 3540, 1032)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep0_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(3540, 1010, 3645, 1010, 3645, 1032, 3540, 1032)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep0_0"]
-points = PackedVector2Array(3540, 1010, 3645, 1010)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
+[node name="ReservoirSign" type="Label" parent="CourseLabels"]
+offset_left = 7500.0
+offset_top = 1790.0
+text = "THE RESERVOIR\n↑ shaft to the other routes   → ride the east bank"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
+mouse_filter = 2
 
-[node name="ReturnStep0_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep0_1"]
-polygon = PackedVector2Array(3355, 925, 3460, 925, 3460, 947, 3355, 947)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep0_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(3355, 925, 3460, 925, 3460, 947, 3355, 947)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep0_1"]
-points = PackedVector2Array(3355, 925, 3460, 925)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep0_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep0_2"]
-polygon = PackedVector2Array(3170, 840, 3275, 840, 3275, 862, 3170, 862)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep0_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(3170, 840, 3275, 840, 3275, 862, 3170, 862)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep0_2"]
-points = PackedVector2Array(3170, 840, 3275, 840)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback0_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback0_0"]
-polygon = PackedVector2Array(360, 0, 465, 0, 465, 26, 360, 26)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback0_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(360, 0, 465, 0, 465, 26, 360, 26)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback0_0"]
-points = PackedVector2Array(360, 0, 465, 0)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback0_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback0_1"]
-polygon = PackedVector2Array(170, -70, 275, -70, 275, -44, 170, -44)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback0_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(170, -70, 275, -70, 275, -44, 170, -44)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback0_1"]
-points = PackedVector2Array(170, -70, 275, -70)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback0_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback0_2"]
-polygon = PackedVector2Array(-20, -140, 85, -140, 85, -114, -20, -114)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback0_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(-20, -140, 85, -140, 85, -114, -20, -114)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback0_2"]
-points = PackedVector2Array(-20, -140, 85, -140)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="1_Lookback" type="Marker2D" parent="Discoveries"]
-position = Vector2(30, -168)
-
-[node name="RejoinLabel0" type="Label" parent="CourseLabels"]
+[node name="ReturnSign" type="Label" parent="CourseLabels"]
 offset_left = 4400.0
-offset_top = 1030.0
-text = "ROUTES REJOIN  →\nBuild speed for the next basin"
+offset_top = 1610.0
+text = "← RETURN LOOP\nBack toward the west gallery"
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
 mouse_filter = 2
 
-[node name="Basin2Descent" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin2Descent"]
-polygon = PackedVector2Array(5600, 1450, 6400, 1450, 7800, 2050, 8600, 2050, 8600, 2098, 7800, 2098, 6400, 1498, 5600, 1498)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin2Descent"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(5600, 1450, 6400, 1450, 7800, 2050, 8600, 2050, 8600, 2098, 7800, 2098, 6400, 1498, 5600, 1498)
-[node name="Edge" type="Line2D" parent="Terrain/Basin2Descent"]
-points = PackedVector2Array(5600, 1450, 6400, 1450, 7800, 2050, 8600, 2050)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin2Exit" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin2Exit"]
-polygon = PackedVector2Array(8780, 2050, 9500, 2050, 10700, 2400, 11200, 2400, 11200, 2448, 10700, 2448, 9500, 2098, 8780, 2098)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin2Exit"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(8780, 2050, 9500, 2050, 10700, 2400, 11200, 2400, 11200, 2448, 10700, 2448, 9500, 2098, 8780, 2098)
-[node name="Edge" type="Line2D" parent="Terrain/Basin2Exit"]
-points = PackedVector2Array(8780, 2050, 9500, 2050, 10700, 2400, 11200, 2400)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin2Tunnel" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin2Tunnel"]
-polygon = PackedVector2Array(8070, 2000, 8330, 2000, 8330, 2022, 8070, 2022)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin2Tunnel"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(8070, 2000, 8330, 2000, 8330, 2022, 8070, 2022)
-[node name="Edge" type="Line2D" parent="Terrain/Basin2Tunnel"]
-points = PackedVector2Array(8070, 2000, 8330, 2000)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Basin2" type="Label" parent="CourseLabels"]
-offset_left = 5700.0
-offset_top = 1280.0
-text = "02  SKY GARDEN\nLow: carry speed  /  High: find the overlook"
+[node name="EastLaunchSign" type="Label" parent="CourseLabels"]
+offset_left = 11000.0
+offset_top = -390.0
+text = "EAST LAUNCH\nDrop onto the rising bank below"
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
 mouse_filter = 2
 
-[node name="TunnelHint1" type="Label" parent="CourseLabels"]
-offset_left = 7900.0
-offset_top = 1880.0
-text = "SLIDE UNDER  /  JUMP OVER"
+[node name="FinishSign" type="Label" parent="CourseLabels"]
+offset_left = 15100.0
+offset_top = -1010.0
+text = "HOME STRETCH\nRace the line you found. Try a different one."
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
 mouse_filter = 2
 
-[node name="GapHint1" type="Label" parent="CourseLabels"]
-offset_left = 8400.0
-offset_top = 1880.0
-text = "GAP  →  REJOIN\nMissed it? The amber ledge catches you."
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Recovery1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Recovery1"]
-polygon = PackedVector2Array(8400, 2250, 8990, 2250, 8990, 2298, 8400, 2298)
-[node name="Fill" type="Polygon2D" parent="Terrain/Recovery1"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(8400, 2250, 8990, 2250, 8990, 2298, 8400, 2298)
-[node name="Edge" type="Line2D" parent="Terrain/Recovery1"]
-points = PackedVector2Array(8400, 2250, 8990, 2250)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="RecoveryStep1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/RecoveryStep1"]
-polygon = PackedVector2Array(8660, 2155, 8720, 2155, 8720, 2179, 8660, 2179)
-[node name="Fill" type="Polygon2D" parent="Terrain/RecoveryStep1"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(8660, 2155, 8720, 2155, 8720, 2179, 8660, 2179)
-[node name="Edge" type="Line2D" parent="Terrain/RecoveryStep1"]
-points = PackedVector2Array(8660, 2155, 8720, 2155)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="2_Recovery" type="Marker2D" parent="Discoveries"]
-position = Vector2(8590, 2220)
-
-[node name="ShaftLeft1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftLeft1"]
-polygon = PackedVector2Array(6220, 750, 6250, 750, 6250, 1380, 6220, 1380)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftLeft1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(6220, 750, 6250, 750, 6250, 1380, 6220, 1380)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftLeft1"]
-points = PackedVector2Array(6220, 750, 6250, 750)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftRight1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftRight1"]
-polygon = PackedVector2Array(6370, 750, 6400, 750, 6400, 1380, 6370, 1380)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftRight1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(6370, 750, 6400, 750, 6400, 1380, 6370, 1380)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftRight1"]
-points = PackedVector2Array(6370, 750, 6400, 750)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="SkyLaunch1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyLaunch1"]
-polygon = PackedVector2Array(6400, 750, 6650, 750, 7700, 1370, 7700, 1418, 6650, 798, 6400, 798)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyLaunch1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(6400, 750, 6650, 750, 7700, 1370, 7700, 1418, 6650, 798, 6400, 798)
-[node name="Edge" type="Line2D" parent="Terrain/SkyLaunch1"]
-points = PackedVector2Array(6400, 750, 6650, 750, 7700, 1370)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftHint1" type="Label" parent="CourseLabels"]
-offset_left = 6050.0
-offset_top = 1355.0
-text = "↑ WALL JUMP\nHold toward wall to slow your fall"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="2_Summit" type="Marker2D" parent="Discoveries"]
-position = Vector2(6530, 720)
-
-[node name="Basin2" type="Marker2D" parent="RestStops"]
-position = Vector2(5780, 1428)
-
-[node name="SkyIsland1_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland1_0"]
-polygon = PackedVector2Array(7820, 1370, 7980, 1370, 7980, 1398, 7820, 1398)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland1_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(7820, 1370, 7980, 1370, 7980, 1398, 7820, 1398)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland1_0"]
-points = PackedVector2Array(7820, 1370, 7980, 1370)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="2_Island1" type="Marker2D" parent="Discoveries"]
-position = Vector2(7880, 1342)
-
-[node name="SkyIsland1_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland1_1"]
-polygon = PackedVector2Array(8055, 1520, 8215, 1520, 8215, 1548, 8055, 1548)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland1_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(8055, 1520, 8215, 1520, 8215, 1548, 8055, 1548)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland1_1"]
-points = PackedVector2Array(8055, 1520, 8215, 1520)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="2_Island2" type="Marker2D" parent="Discoveries"]
-position = Vector2(8115, 1492)
-
-[node name="SkyIsland1_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland1_2"]
-polygon = PackedVector2Array(8290, 1520, 8450, 1520, 8450, 1548, 8290, 1548)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland1_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(8290, 1520, 8450, 1520, 8450, 1548, 8290, 1548)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland1_2"]
-points = PackedVector2Array(8290, 1520, 8450, 1520)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="2_Island3" type="Marker2D" parent="Discoveries"]
-position = Vector2(8350, 1492)
-
-[node name="SkyIsland1_3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland1_3"]
-polygon = PackedVector2Array(8525, 1670, 8685, 1670, 8685, 1698, 8525, 1698)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland1_3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(8525, 1670, 8685, 1670, 8685, 1698, 8525, 1698)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland1_3"]
-points = PackedVector2Array(8525, 1670, 8685, 1670)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="2_Island4" type="Marker2D" parent="Discoveries"]
-position = Vector2(8585, 1642)
-
-[node name="SkyIsland1_4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland1_4"]
-polygon = PackedVector2Array(8760, 1670, 8920, 1670, 8920, 1698, 8760, 1698)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland1_4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(8760, 1670, 8920, 1670, 8920, 1698, 8760, 1698)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland1_4"]
-points = PackedVector2Array(8760, 1670, 8920, 1670)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="2_Island5" type="Marker2D" parent="Discoveries"]
-position = Vector2(8820, 1642)
-
-[node name="SkyRejoin1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyRejoin1"]
-polygon = PackedVector2Array(9000, 1800, 9300, 1800, 9670, 1950, 9670, 1982, 9300, 1832, 9000, 1832)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyRejoin1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(9000, 1800, 9300, 1800, 9670, 1950, 9670, 1982, 9300, 1832, 9000, 1832)
-[node name="Edge" type="Line2D" parent="Terrain/SkyRejoin1"]
-points = PackedVector2Array(9000, 1800, 9300, 1800, 9670, 1950)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="2_Rejoin" type="Marker2D" parent="Discoveries"]
-position = Vector2(9200, 1772)
-
-[node name="ReturnStep1_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep1_0"]
-polygon = PackedVector2Array(9140, 1960, 9245, 1960, 9245, 1982, 9140, 1982)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep1_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(9140, 1960, 9245, 1960, 9245, 1982, 9140, 1982)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep1_0"]
-points = PackedVector2Array(9140, 1960, 9245, 1960)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep1_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep1_1"]
-polygon = PackedVector2Array(8955, 1875, 9060, 1875, 9060, 1897, 8955, 1897)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep1_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(8955, 1875, 9060, 1875, 9060, 1897, 8955, 1897)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep1_1"]
-points = PackedVector2Array(8955, 1875, 9060, 1875)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep1_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep1_2"]
-polygon = PackedVector2Array(8770, 1790, 8875, 1790, 8875, 1812, 8770, 1812)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep1_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(8770, 1790, 8875, 1790, 8875, 1812, 8770, 1812)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep1_2"]
-points = PackedVector2Array(8770, 1790, 8875, 1790)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback1_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback1_0"]
-polygon = PackedVector2Array(5960, 810, 6065, 810, 6065, 836, 5960, 836)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback1_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(5960, 810, 6065, 810, 6065, 836, 5960, 836)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback1_0"]
-points = PackedVector2Array(5960, 810, 6065, 810)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback1_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback1_1"]
-polygon = PackedVector2Array(5770, 740, 5875, 740, 5875, 766, 5770, 766)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback1_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(5770, 740, 5875, 740, 5875, 766, 5770, 766)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback1_1"]
-points = PackedVector2Array(5770, 740, 5875, 740)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback1_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback1_2"]
-polygon = PackedVector2Array(5580, 670, 5685, 670, 5685, 696, 5580, 696)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback1_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(5580, 670, 5685, 670, 5685, 696, 5580, 696)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback1_2"]
-points = PackedVector2Array(5580, 670, 5685, 670)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="2_Lookback" type="Marker2D" parent="Discoveries"]
-position = Vector2(5630, 642)
-
-[node name="RejoinLabel1" type="Label" parent="CourseLabels"]
-offset_left = 10000.0
-offset_top = 1980.0
-text = "ROUTES REJOIN  →\nBuild speed for the next basin"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Basin3Descent" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin3Descent"]
-polygon = PackedVector2Array(11200, 2400, 12000, 2400, 13400, 3000, 14200, 3000, 14200, 3048, 13400, 3048, 12000, 2448, 11200, 2448)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin3Descent"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(11200, 2400, 12000, 2400, 13400, 3000, 14200, 3000, 14200, 3048, 13400, 3048, 12000, 2448, 11200, 2448)
-[node name="Edge" type="Line2D" parent="Terrain/Basin3Descent"]
-points = PackedVector2Array(11200, 2400, 12000, 2400, 13400, 3000, 14200, 3000)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin3Exit" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin3Exit"]
-polygon = PackedVector2Array(14380, 3000, 15100, 3000, 16300, 3350, 16800, 3350, 16800, 3398, 16300, 3398, 15100, 3048, 14380, 3048)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin3Exit"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(14380, 3000, 15100, 3000, 16300, 3350, 16800, 3350, 16800, 3398, 16300, 3398, 15100, 3048, 14380, 3048)
-[node name="Edge" type="Line2D" parent="Terrain/Basin3Exit"]
-points = PackedVector2Array(14380, 3000, 15100, 3000, 16300, 3350, 16800, 3350)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin3Tunnel" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin3Tunnel"]
-polygon = PackedVector2Array(13670, 2950, 13930, 2950, 13930, 2972, 13670, 2972)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin3Tunnel"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(13670, 2950, 13930, 2950, 13930, 2972, 13670, 2972)
-[node name="Edge" type="Line2D" parent="Terrain/Basin3Tunnel"]
-points = PackedVector2Array(13670, 2950, 13930, 2950)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Basin3" type="Label" parent="CourseLabels"]
-offset_left = 11300.0
-offset_top = 2230.0
-text = "03  SWITCHBACKS\nLow: carry speed  /  High: find the overlook"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="TunnelHint2" type="Label" parent="CourseLabels"]
-offset_left = 13500.0
-offset_top = 2830.0
-text = "SLIDE UNDER  /  JUMP OVER"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="GapHint2" type="Label" parent="CourseLabels"]
-offset_left = 14000.0
-offset_top = 2830.0
-text = "GAP  →  REJOIN\nMissed it? The amber ledge catches you."
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Recovery2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Recovery2"]
-polygon = PackedVector2Array(14000, 3200, 14590, 3200, 14590, 3248, 14000, 3248)
-[node name="Fill" type="Polygon2D" parent="Terrain/Recovery2"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(14000, 3200, 14590, 3200, 14590, 3248, 14000, 3248)
-[node name="Edge" type="Line2D" parent="Terrain/Recovery2"]
-points = PackedVector2Array(14000, 3200, 14590, 3200)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="RecoveryStep2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/RecoveryStep2"]
-polygon = PackedVector2Array(14260, 3105, 14320, 3105, 14320, 3129, 14260, 3129)
-[node name="Fill" type="Polygon2D" parent="Terrain/RecoveryStep2"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(14260, 3105, 14320, 3105, 14320, 3129, 14260, 3129)
-[node name="Edge" type="Line2D" parent="Terrain/RecoveryStep2"]
-points = PackedVector2Array(14260, 3105, 14320, 3105)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="3_Recovery" type="Marker2D" parent="Discoveries"]
-position = Vector2(14190, 3170)
-
-[node name="ShaftLeft2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftLeft2"]
-polygon = PackedVector2Array(11820, 1950, 11850, 1950, 11850, 2330, 11820, 2330)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftLeft2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(11820, 1950, 11850, 1950, 11850, 2330, 11820, 2330)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftLeft2"]
-points = PackedVector2Array(11820, 1950, 11850, 1950)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftRight2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftRight2"]
-polygon = PackedVector2Array(11970, 1950, 12000, 1950, 12000, 2330, 11970, 2330)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftRight2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(11970, 1950, 12000, 1950, 12000, 2330, 11970, 2330)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftRight2"]
-points = PackedVector2Array(11970, 1950, 12000, 1950)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="SkyLaunch2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyLaunch2"]
-polygon = PackedVector2Array(12000, 1950, 12250, 1950, 13300, 2320, 13300, 2368, 12250, 1998, 12000, 1998)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyLaunch2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(12000, 1950, 12250, 1950, 13300, 2320, 13300, 2368, 12250, 1998, 12000, 1998)
-[node name="Edge" type="Line2D" parent="Terrain/SkyLaunch2"]
-points = PackedVector2Array(12000, 1950, 12250, 1950, 13300, 2320)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftHint2" type="Label" parent="CourseLabels"]
-offset_left = 11650.0
-offset_top = 2305.0
-text = "↑ WALL JUMP\nHold toward wall to slow your fall"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="3_Summit" type="Marker2D" parent="Discoveries"]
-position = Vector2(12130, 1920)
-
-[node name="Basin3" type="Marker2D" parent="RestStops"]
-position = Vector2(11380, 2378)
-
-[node name="SkyIsland2_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland2_0"]
-polygon = PackedVector2Array(13420, 2320, 13580, 2320, 13580, 2348, 13420, 2348)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland2_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(13420, 2320, 13580, 2320, 13580, 2348, 13420, 2348)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland2_0"]
-points = PackedVector2Array(13420, 2320, 13580, 2320)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="3_Island1" type="Marker2D" parent="Discoveries"]
-position = Vector2(13480, 2292)
-
-[node name="SkyIsland2_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland2_1"]
-polygon = PackedVector2Array(13655, 2470, 13815, 2470, 13815, 2498, 13655, 2498)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland2_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(13655, 2470, 13815, 2470, 13815, 2498, 13655, 2498)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland2_1"]
-points = PackedVector2Array(13655, 2470, 13815, 2470)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="3_Island2" type="Marker2D" parent="Discoveries"]
-position = Vector2(13715, 2442)
-
-[node name="SkyIsland2_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland2_2"]
-polygon = PackedVector2Array(13890, 2470, 14050, 2470, 14050, 2498, 13890, 2498)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland2_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(13890, 2470, 14050, 2470, 14050, 2498, 13890, 2498)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland2_2"]
-points = PackedVector2Array(13890, 2470, 14050, 2470)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="3_Island3" type="Marker2D" parent="Discoveries"]
-position = Vector2(13950, 2442)
-
-[node name="SkyIsland2_3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland2_3"]
-polygon = PackedVector2Array(14125, 2620, 14285, 2620, 14285, 2648, 14125, 2648)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland2_3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(14125, 2620, 14285, 2620, 14285, 2648, 14125, 2648)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland2_3"]
-points = PackedVector2Array(14125, 2620, 14285, 2620)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="3_Island4" type="Marker2D" parent="Discoveries"]
-position = Vector2(14185, 2592)
-
-[node name="SkyIsland2_4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland2_4"]
-polygon = PackedVector2Array(14360, 2620, 14520, 2620, 14520, 2648, 14360, 2648)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland2_4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(14360, 2620, 14520, 2620, 14520, 2648, 14360, 2648)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland2_4"]
-points = PackedVector2Array(14360, 2620, 14520, 2620)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="3_Island5" type="Marker2D" parent="Discoveries"]
-position = Vector2(14420, 2592)
-
-[node name="SkyRejoin2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyRejoin2"]
-polygon = PackedVector2Array(14600, 2750, 14900, 2750, 15270, 2900, 15270, 2932, 14900, 2782, 14600, 2782)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyRejoin2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(14600, 2750, 14900, 2750, 15270, 2900, 15270, 2932, 14900, 2782, 14600, 2782)
-[node name="Edge" type="Line2D" parent="Terrain/SkyRejoin2"]
-points = PackedVector2Array(14600, 2750, 14900, 2750, 15270, 2900)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="3_Rejoin" type="Marker2D" parent="Discoveries"]
-position = Vector2(14800, 2722)
-
-[node name="ReturnStep2_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep2_0"]
-polygon = PackedVector2Array(14740, 2910, 14845, 2910, 14845, 2932, 14740, 2932)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep2_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(14740, 2910, 14845, 2910, 14845, 2932, 14740, 2932)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep2_0"]
-points = PackedVector2Array(14740, 2910, 14845, 2910)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep2_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep2_1"]
-polygon = PackedVector2Array(14555, 2825, 14660, 2825, 14660, 2847, 14555, 2847)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep2_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(14555, 2825, 14660, 2825, 14660, 2847, 14555, 2847)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep2_1"]
-points = PackedVector2Array(14555, 2825, 14660, 2825)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep2_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep2_2"]
-polygon = PackedVector2Array(14370, 2740, 14475, 2740, 14475, 2762, 14370, 2762)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep2_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(14370, 2740, 14475, 2740, 14475, 2762, 14370, 2762)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep2_2"]
-points = PackedVector2Array(14370, 2740, 14475, 2740)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback2_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback2_0"]
-polygon = PackedVector2Array(11560, 2010, 11665, 2010, 11665, 2036, 11560, 2036)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback2_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(11560, 2010, 11665, 2010, 11665, 2036, 11560, 2036)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback2_0"]
-points = PackedVector2Array(11560, 2010, 11665, 2010)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback2_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback2_1"]
-polygon = PackedVector2Array(11370, 1940, 11475, 1940, 11475, 1966, 11370, 1966)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback2_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(11370, 1940, 11475, 1940, 11475, 1966, 11370, 1966)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback2_1"]
-points = PackedVector2Array(11370, 1940, 11475, 1940)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback2_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback2_2"]
-polygon = PackedVector2Array(11180, 1870, 11285, 1870, 11285, 1896, 11180, 1896)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback2_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(11180, 1870, 11285, 1870, 11285, 1896, 11180, 1896)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback2_2"]
-points = PackedVector2Array(11180, 1870, 11285, 1870)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="3_Lookback" type="Marker2D" parent="Discoveries"]
-position = Vector2(11230, 1842)
-
-[node name="RejoinLabel2" type="Label" parent="CourseLabels"]
-offset_left = 15600.0
-offset_top = 2930.0
-text = "ROUTES REJOIN  →\nBuild speed for the next basin"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Basin4Descent" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin4Descent"]
-polygon = PackedVector2Array(16800, 3350, 17600, 3350, 19000, 3950, 19800, 3950, 19800, 3998, 19000, 3998, 17600, 3398, 16800, 3398)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin4Descent"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(16800, 3350, 17600, 3350, 19000, 3950, 19800, 3950, 19800, 3998, 19000, 3998, 17600, 3398, 16800, 3398)
-[node name="Edge" type="Line2D" parent="Terrain/Basin4Descent"]
-points = PackedVector2Array(16800, 3350, 17600, 3350, 19000, 3950, 19800, 3950)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin4Exit" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin4Exit"]
-polygon = PackedVector2Array(19980, 3950, 20700, 3950, 21900, 4300, 22400, 4300, 22400, 4348, 21900, 4348, 20700, 3998, 19980, 3998)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin4Exit"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(19980, 3950, 20700, 3950, 21900, 4300, 22400, 4300, 22400, 4348, 21900, 4348, 20700, 3998, 19980, 3998)
-[node name="Edge" type="Line2D" parent="Terrain/Basin4Exit"]
-points = PackedVector2Array(19980, 3950, 20700, 3950, 21900, 4300, 22400, 4300)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin4Tunnel" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin4Tunnel"]
-polygon = PackedVector2Array(19270, 3900, 19530, 3900, 19530, 3922, 19270, 3922)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin4Tunnel"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(19270, 3900, 19530, 3900, 19530, 3922, 19270, 3922)
-[node name="Edge" type="Line2D" parent="Terrain/Basin4Tunnel"]
-points = PackedVector2Array(19270, 3900, 19530, 3900)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Basin4" type="Label" parent="CourseLabels"]
-offset_left = 16900.0
-offset_top = 3180.0
-text = "04  THE VIADUCT\nLow: carry speed  /  High: find the overlook"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="TunnelHint3" type="Label" parent="CourseLabels"]
-offset_left = 19100.0
-offset_top = 3780.0
-text = "SLIDE UNDER  /  JUMP OVER"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="GapHint3" type="Label" parent="CourseLabels"]
-offset_left = 19600.0
-offset_top = 3780.0
-text = "GAP  →  REJOIN\nMissed it? The amber ledge catches you."
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Recovery3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Recovery3"]
-polygon = PackedVector2Array(19600, 4150, 20190, 4150, 20190, 4198, 19600, 4198)
-[node name="Fill" type="Polygon2D" parent="Terrain/Recovery3"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(19600, 4150, 20190, 4150, 20190, 4198, 19600, 4198)
-[node name="Edge" type="Line2D" parent="Terrain/Recovery3"]
-points = PackedVector2Array(19600, 4150, 20190, 4150)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="RecoveryStep3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/RecoveryStep3"]
-polygon = PackedVector2Array(19860, 4055, 19920, 4055, 19920, 4079, 19860, 4079)
-[node name="Fill" type="Polygon2D" parent="Terrain/RecoveryStep3"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(19860, 4055, 19920, 4055, 19920, 4079, 19860, 4079)
-[node name="Edge" type="Line2D" parent="Terrain/RecoveryStep3"]
-points = PackedVector2Array(19860, 4055, 19920, 4055)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="4_Recovery" type="Marker2D" parent="Discoveries"]
-position = Vector2(19790, 4120)
-
-[node name="ShaftLeft3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftLeft3"]
-polygon = PackedVector2Array(17420, 2720, 17450, 2720, 17450, 3280, 17420, 3280)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftLeft3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(17420, 2720, 17450, 2720, 17450, 3280, 17420, 3280)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftLeft3"]
-points = PackedVector2Array(17420, 2720, 17450, 2720)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftRight3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftRight3"]
-polygon = PackedVector2Array(17570, 2720, 17600, 2720, 17600, 3280, 17570, 3280)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftRight3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(17570, 2720, 17600, 2720, 17600, 3280, 17570, 3280)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftRight3"]
-points = PackedVector2Array(17570, 2720, 17600, 2720)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="SkyLaunch3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyLaunch3"]
-polygon = PackedVector2Array(17600, 2720, 17850, 2720, 18900, 3270, 18900, 3318, 17850, 2768, 17600, 2768)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyLaunch3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(17600, 2720, 17850, 2720, 18900, 3270, 18900, 3318, 17850, 2768, 17600, 2768)
-[node name="Edge" type="Line2D" parent="Terrain/SkyLaunch3"]
-points = PackedVector2Array(17600, 2720, 17850, 2720, 18900, 3270)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftHint3" type="Label" parent="CourseLabels"]
-offset_left = 17250.0
-offset_top = 3255.0
-text = "↑ WALL JUMP\nHold toward wall to slow your fall"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="4_Summit" type="Marker2D" parent="Discoveries"]
-position = Vector2(17730, 2690)
-
-[node name="Basin4" type="Marker2D" parent="RestStops"]
-position = Vector2(16980, 3328)
-
-[node name="SkyIsland3_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland3_0"]
-polygon = PackedVector2Array(19020, 3270, 19180, 3270, 19180, 3298, 19020, 3298)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland3_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(19020, 3270, 19180, 3270, 19180, 3298, 19020, 3298)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland3_0"]
-points = PackedVector2Array(19020, 3270, 19180, 3270)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="4_Island1" type="Marker2D" parent="Discoveries"]
-position = Vector2(19080, 3242)
-
-[node name="SkyIsland3_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland3_1"]
-polygon = PackedVector2Array(19255, 3420, 19415, 3420, 19415, 3448, 19255, 3448)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland3_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(19255, 3420, 19415, 3420, 19415, 3448, 19255, 3448)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland3_1"]
-points = PackedVector2Array(19255, 3420, 19415, 3420)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="4_Island2" type="Marker2D" parent="Discoveries"]
-position = Vector2(19315, 3392)
-
-[node name="SkyIsland3_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland3_2"]
-polygon = PackedVector2Array(19490, 3420, 19650, 3420, 19650, 3448, 19490, 3448)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland3_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(19490, 3420, 19650, 3420, 19650, 3448, 19490, 3448)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland3_2"]
-points = PackedVector2Array(19490, 3420, 19650, 3420)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="4_Island3" type="Marker2D" parent="Discoveries"]
-position = Vector2(19550, 3392)
-
-[node name="SkyIsland3_3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland3_3"]
-polygon = PackedVector2Array(19725, 3570, 19885, 3570, 19885, 3598, 19725, 3598)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland3_3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(19725, 3570, 19885, 3570, 19885, 3598, 19725, 3598)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland3_3"]
-points = PackedVector2Array(19725, 3570, 19885, 3570)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="4_Island4" type="Marker2D" parent="Discoveries"]
-position = Vector2(19785, 3542)
-
-[node name="SkyIsland3_4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland3_4"]
-polygon = PackedVector2Array(19960, 3570, 20120, 3570, 20120, 3598, 19960, 3598)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland3_4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(19960, 3570, 20120, 3570, 20120, 3598, 19960, 3598)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland3_4"]
-points = PackedVector2Array(19960, 3570, 20120, 3570)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="4_Island5" type="Marker2D" parent="Discoveries"]
-position = Vector2(20020, 3542)
-
-[node name="SkyRejoin3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyRejoin3"]
-polygon = PackedVector2Array(20200, 3700, 20500, 3700, 20870, 3850, 20870, 3882, 20500, 3732, 20200, 3732)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyRejoin3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(20200, 3700, 20500, 3700, 20870, 3850, 20870, 3882, 20500, 3732, 20200, 3732)
-[node name="Edge" type="Line2D" parent="Terrain/SkyRejoin3"]
-points = PackedVector2Array(20200, 3700, 20500, 3700, 20870, 3850)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="4_Rejoin" type="Marker2D" parent="Discoveries"]
-position = Vector2(20400, 3672)
-
-[node name="ReturnStep3_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep3_0"]
-polygon = PackedVector2Array(20340, 3860, 20445, 3860, 20445, 3882, 20340, 3882)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep3_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(20340, 3860, 20445, 3860, 20445, 3882, 20340, 3882)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep3_0"]
-points = PackedVector2Array(20340, 3860, 20445, 3860)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep3_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep3_1"]
-polygon = PackedVector2Array(20155, 3775, 20260, 3775, 20260, 3797, 20155, 3797)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep3_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(20155, 3775, 20260, 3775, 20260, 3797, 20155, 3797)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep3_1"]
-points = PackedVector2Array(20155, 3775, 20260, 3775)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep3_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep3_2"]
-polygon = PackedVector2Array(19970, 3690, 20075, 3690, 20075, 3712, 19970, 3712)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep3_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(19970, 3690, 20075, 3690, 20075, 3712, 19970, 3712)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep3_2"]
-points = PackedVector2Array(19970, 3690, 20075, 3690)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback3_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback3_0"]
-polygon = PackedVector2Array(17160, 2780, 17265, 2780, 17265, 2806, 17160, 2806)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback3_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(17160, 2780, 17265, 2780, 17265, 2806, 17160, 2806)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback3_0"]
-points = PackedVector2Array(17160, 2780, 17265, 2780)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback3_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback3_1"]
-polygon = PackedVector2Array(16970, 2710, 17075, 2710, 17075, 2736, 16970, 2736)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback3_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(16970, 2710, 17075, 2710, 17075, 2736, 16970, 2736)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback3_1"]
-points = PackedVector2Array(16970, 2710, 17075, 2710)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback3_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback3_2"]
-polygon = PackedVector2Array(16780, 2640, 16885, 2640, 16885, 2666, 16780, 2666)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback3_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(16780, 2640, 16885, 2640, 16885, 2666, 16780, 2666)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback3_2"]
-points = PackedVector2Array(16780, 2640, 16885, 2640)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="4_Lookback" type="Marker2D" parent="Discoveries"]
-position = Vector2(16830, 2612)
-
-[node name="RejoinLabel3" type="Label" parent="CourseLabels"]
-offset_left = 21200.0
-offset_top = 3880.0
-text = "ROUTES REJOIN  →\nBuild speed for the next basin"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Basin5Descent" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin5Descent"]
-polygon = PackedVector2Array(22400, 4300, 23200, 4300, 24600, 4900, 25400, 4900, 25400, 4948, 24600, 4948, 23200, 4348, 22400, 4348)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin5Descent"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(22400, 4300, 23200, 4300, 24600, 4900, 25400, 4900, 25400, 4948, 24600, 4948, 23200, 4348, 22400, 4348)
-[node name="Edge" type="Line2D" parent="Terrain/Basin5Descent"]
-points = PackedVector2Array(22400, 4300, 23200, 4300, 24600, 4900, 25400, 4900)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin5Exit" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin5Exit"]
-polygon = PackedVector2Array(25580, 4900, 26300, 4900, 27500, 5250, 28000, 5250, 28000, 5298, 27500, 5298, 26300, 4948, 25580, 4948)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin5Exit"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(25580, 4900, 26300, 4900, 27500, 5250, 28000, 5250, 28000, 5298, 27500, 5298, 26300, 4948, 25580, 4948)
-[node name="Edge" type="Line2D" parent="Terrain/Basin5Exit"]
-points = PackedVector2Array(25580, 4900, 26300, 4900, 27500, 5250, 28000, 5250)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="Basin5Tunnel" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Basin5Tunnel"]
-polygon = PackedVector2Array(24870, 4850, 25130, 4850, 25130, 4872, 24870, 4872)
-[node name="Fill" type="Polygon2D" parent="Terrain/Basin5Tunnel"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(24870, 4850, 25130, 4850, 25130, 4872, 24870, 4872)
-[node name="Edge" type="Line2D" parent="Terrain/Basin5Tunnel"]
-points = PackedVector2Array(24870, 4850, 25130, 4850)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Basin5" type="Label" parent="CourseLabels"]
-offset_left = 22500.0
-offset_top = 4130.0
-text = "05  LONG WAY HOME\nLow: carry speed  /  High: find the overlook"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="TunnelHint4" type="Label" parent="CourseLabels"]
-offset_left = 24700.0
-offset_top = 4730.0
-text = "SLIDE UNDER  /  JUMP OVER"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="GapHint4" type="Label" parent="CourseLabels"]
-offset_left = 25200.0
-offset_top = 4730.0
-text = "GAP  →  REJOIN\nMissed it? The amber ledge catches you."
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Recovery4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Recovery4"]
-polygon = PackedVector2Array(25200, 5100, 25790, 5100, 25790, 5148, 25200, 5148)
-[node name="Fill" type="Polygon2D" parent="Terrain/Recovery4"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(25200, 5100, 25790, 5100, 25790, 5148, 25200, 5148)
-[node name="Edge" type="Line2D" parent="Terrain/Recovery4"]
-points = PackedVector2Array(25200, 5100, 25790, 5100)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="RecoveryStep4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/RecoveryStep4"]
-polygon = PackedVector2Array(25460, 5005, 25520, 5005, 25520, 5029, 25460, 5029)
-[node name="Fill" type="Polygon2D" parent="Terrain/RecoveryStep4"]
-color = Color(0.25, 0.23, 0.18, 1)
-polygon = PackedVector2Array(25460, 5005, 25520, 5005, 25520, 5029, 25460, 5029)
-[node name="Edge" type="Line2D" parent="Terrain/RecoveryStep4"]
-points = PackedVector2Array(25460, 5005, 25520, 5005)
-width = 3.0
-default_color = Color(0.90, 0.68, 0.38, 1)
-
-[node name="5_Recovery" type="Marker2D" parent="Discoveries"]
-position = Vector2(25390, 5070)
-
-[node name="ShaftLeft4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftLeft4"]
-polygon = PackedVector2Array(23020, 3500, 23050, 3500, 23050, 4230, 23020, 4230)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftLeft4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(23020, 3500, 23050, 3500, 23050, 4230, 23020, 4230)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftLeft4"]
-points = PackedVector2Array(23020, 3500, 23050, 3500)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftRight4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ShaftRight4"]
-polygon = PackedVector2Array(23170, 3500, 23200, 3500, 23200, 4230, 23170, 4230)
-[node name="Fill" type="Polygon2D" parent="Terrain/ShaftRight4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(23170, 3500, 23200, 3500, 23200, 4230, 23170, 4230)
-[node name="Edge" type="Line2D" parent="Terrain/ShaftRight4"]
-points = PackedVector2Array(23170, 3500, 23200, 3500)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="SkyLaunch4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyLaunch4"]
-polygon = PackedVector2Array(23200, 3500, 23450, 3500, 24500, 4220, 24500, 4268, 23450, 3548, 23200, 3548)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyLaunch4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(23200, 3500, 23450, 3500, 24500, 4220, 24500, 4268, 23450, 3548, 23200, 3548)
-[node name="Edge" type="Line2D" parent="Terrain/SkyLaunch4"]
-points = PackedVector2Array(23200, 3500, 23450, 3500, 24500, 4220)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ShaftHint4" type="Label" parent="CourseLabels"]
-offset_left = 22850.0
-offset_top = 4205.0
-text = "↑ WALL JUMP\nHold toward wall to slow your fall"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="5_Summit" type="Marker2D" parent="Discoveries"]
-position = Vector2(23330, 3470)
-
-[node name="Basin5" type="Marker2D" parent="RestStops"]
-position = Vector2(22580, 4278)
-
-[node name="SkyIsland4_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland4_0"]
-polygon = PackedVector2Array(24620, 4220, 24780, 4220, 24780, 4248, 24620, 4248)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland4_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(24620, 4220, 24780, 4220, 24780, 4248, 24620, 4248)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland4_0"]
-points = PackedVector2Array(24620, 4220, 24780, 4220)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="5_Island1" type="Marker2D" parent="Discoveries"]
-position = Vector2(24680, 4192)
-
-[node name="SkyIsland4_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland4_1"]
-polygon = PackedVector2Array(24855, 4370, 25015, 4370, 25015, 4398, 24855, 4398)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland4_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(24855, 4370, 25015, 4370, 25015, 4398, 24855, 4398)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland4_1"]
-points = PackedVector2Array(24855, 4370, 25015, 4370)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="5_Island2" type="Marker2D" parent="Discoveries"]
-position = Vector2(24915, 4342)
-
-[node name="SkyIsland4_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland4_2"]
-polygon = PackedVector2Array(25090, 4370, 25250, 4370, 25250, 4398, 25090, 4398)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland4_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(25090, 4370, 25250, 4370, 25250, 4398, 25090, 4398)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland4_2"]
-points = PackedVector2Array(25090, 4370, 25250, 4370)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="5_Island3" type="Marker2D" parent="Discoveries"]
-position = Vector2(25150, 4342)
-
-[node name="SkyIsland4_3" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland4_3"]
-polygon = PackedVector2Array(25325, 4520, 25485, 4520, 25485, 4548, 25325, 4548)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland4_3"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(25325, 4520, 25485, 4520, 25485, 4548, 25325, 4548)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland4_3"]
-points = PackedVector2Array(25325, 4520, 25485, 4520)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="5_Island4" type="Marker2D" parent="Discoveries"]
-position = Vector2(25385, 4492)
-
-[node name="SkyIsland4_4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyIsland4_4"]
-polygon = PackedVector2Array(25560, 4520, 25720, 4520, 25720, 4548, 25560, 4548)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyIsland4_4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(25560, 4520, 25720, 4520, 25720, 4548, 25560, 4548)
-[node name="Edge" type="Line2D" parent="Terrain/SkyIsland4_4"]
-points = PackedVector2Array(25560, 4520, 25720, 4520)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="5_Island5" type="Marker2D" parent="Discoveries"]
-position = Vector2(25620, 4492)
-
-[node name="SkyRejoin4" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/SkyRejoin4"]
-polygon = PackedVector2Array(25800, 4650, 26100, 4650, 26470, 4800, 26470, 4832, 26100, 4682, 25800, 4682)
-[node name="Fill" type="Polygon2D" parent="Terrain/SkyRejoin4"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(25800, 4650, 26100, 4650, 26470, 4800, 26470, 4832, 26100, 4682, 25800, 4682)
-[node name="Edge" type="Line2D" parent="Terrain/SkyRejoin4"]
-points = PackedVector2Array(25800, 4650, 26100, 4650, 26470, 4800)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="5_Rejoin" type="Marker2D" parent="Discoveries"]
-position = Vector2(26000, 4622)
-
-[node name="ReturnStep4_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep4_0"]
-polygon = PackedVector2Array(25940, 4810, 26045, 4810, 26045, 4832, 25940, 4832)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep4_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(25940, 4810, 26045, 4810, 26045, 4832, 25940, 4832)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep4_0"]
-points = PackedVector2Array(25940, 4810, 26045, 4810)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep4_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep4_1"]
-polygon = PackedVector2Array(25755, 4725, 25860, 4725, 25860, 4747, 25755, 4747)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep4_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(25755, 4725, 25860, 4725, 25860, 4747, 25755, 4747)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep4_1"]
-points = PackedVector2Array(25755, 4725, 25860, 4725)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="ReturnStep4_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnStep4_2"]
-polygon = PackedVector2Array(25570, 4640, 25675, 4640, 25675, 4662, 25570, 4662)
-[node name="Fill" type="Polygon2D" parent="Terrain/ReturnStep4_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(25570, 4640, 25675, 4640, 25675, 4662, 25570, 4662)
-[node name="Edge" type="Line2D" parent="Terrain/ReturnStep4_2"]
-points = PackedVector2Array(25570, 4640, 25675, 4640)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback4_0" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback4_0"]
-polygon = PackedVector2Array(22760, 3560, 22865, 3560, 22865, 3586, 22760, 3586)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback4_0"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(22760, 3560, 22865, 3560, 22865, 3586, 22760, 3586)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback4_0"]
-points = PackedVector2Array(22760, 3560, 22865, 3560)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback4_1" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback4_1"]
-polygon = PackedVector2Array(22570, 3490, 22675, 3490, 22675, 3516, 22570, 3516)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback4_1"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(22570, 3490, 22675, 3490, 22675, 3516, 22570, 3516)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback4_1"]
-points = PackedVector2Array(22570, 3490, 22675, 3490)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="Lookback4_2" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Lookback4_2"]
-polygon = PackedVector2Array(22380, 3420, 22485, 3420, 22485, 3446, 22380, 3446)
-[node name="Fill" type="Polygon2D" parent="Terrain/Lookback4_2"]
-color = Color(0.19, 0.23, 0.36, 1)
-polygon = PackedVector2Array(22380, 3420, 22485, 3420, 22485, 3446, 22380, 3446)
-[node name="Edge" type="Line2D" parent="Terrain/Lookback4_2"]
-points = PackedVector2Array(22380, 3420, 22485, 3420)
-width = 3.0
-default_color = Color(0.65, 0.65, 0.95, 1)
-
-[node name="5_Lookback" type="Marker2D" parent="Discoveries"]
-position = Vector2(22430, 3392)
-
-[node name="RejoinLabel4" type="Label" parent="CourseLabels"]
-offset_left = 26800.0
-offset_top = 4830.0
-text = "ROUTES REJOIN  →\nBuild speed for the next basin"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="FinishRunout" type="StaticBody2D" parent="Terrain"]
-[node name="Collision" type="CollisionPolygon2D" parent="Terrain/FinishRunout"]
-polygon = PackedVector2Array(28000, 5250, 29200, 5250, 29200, 5298, 28000, 5298)
-[node name="Fill" type="Polygon2D" parent="Terrain/FinishRunout"]
-color = Color(0.12, 0.26, 0.29, 1)
-polygon = PackedVector2Array(28000, 5250, 29200, 5250, 29200, 5298, 28000, 5298)
-[node name="Edge" type="Line2D" parent="Terrain/FinishRunout"]
-points = PackedVector2Array(28000, 5250, 29200, 5250)
-width = 3.0
-default_color = Color(0.45, 0.76, 0.71, 1)
+[node name="Spawn" type="Marker2D" parent="."]
+position = Vector2(140, 478)
+
+[node name="Finish" type="Marker2D" parent="."]
+position = Vector2(16000, -800)
 
 [node name="LeftBoundary" type="StaticBody2D" parent="Terrain"]
 [node name="Collision" type="CollisionPolygon2D" parent="Terrain/LeftBoundary"]
@@ -1503,20 +780,6 @@ polygon = PackedVector2Array(-200, -500, -170, -500, -170, 500, -200, 500)
 points = PackedVector2Array(-200, -500, -170, -500)
 width = 3.0
 default_color = Color(0.45, 0.76, 0.71, 1)
-
-[node name="StartHelp" type="Label" parent="CourseLabels"]
-offset_left = 70.0
-offset_top = 50.0
-text = "MOVEMENT LAB 02\nFive basins. Pick a line. Come back for the heights.\nE: explore with recovery   M: map   1 / 2: change lab"
-theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.7, 0.83, 0.81, 1)
-mouse_filter = 2
-
-[node name="Spawn" type="Marker2D" parent="."]
-position = Vector2(140, 478)
-
-[node name="Finish" type="Marker2D" parent="."]
-position = Vector2(28600, 5250)
 
 [node name="Gate" type="Line2D" parent="Finish"]
 points = PackedVector2Array(0, 0, 0, -130, 50, -130)

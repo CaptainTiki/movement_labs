@@ -1,53 +1,57 @@
-# Lab 02 implementation and validation
+# Lab 02: Reservoir redesign and validation
 
-## Local source and delivery
+## Source and local status
 
-Inspected `D:\Godot\REPOs\movement_labs`, on `main` at `0dad3ae`
-(`First Player Controller`). The working tree was clean before this work.
-All development and validation are local. No commit, push, pull request or other
-GitHub mutation was performed.
+Inspected the user's new local commit `8e461a1` (`Longer Route / Wall Jump`) on
+`main` in `D:\Godot\REPOs\movement_labs`. Its course and controllers matched
+the preceding delivered build. This revision changes the course structure in
+response to feedback that it was too linear and repetitive. No GitHub access,
+commit, push or pull request was used.
 
-## Changed and added files
+## What changed
 
-- `project.godot`: launches Lab 02 by default; retains the 4.7 feature tag.
-- `scripts/lab.gd`: configurable course/replay limits, finish/fall hooks, optional
-  richer telemetry, crouching ghost pose, validated longer replays, lab switching.
-- `scripts/lab_02.gd` (new): exploration mode, 45 discoveries, recovery rest stops,
-  course map and Lab 02 finish/fall checks.
-- `scripts/player_02.gd` and `scenes/player_02.tscn` (new): forgiving wall jumps,
-  reduced slide capsule and safe standing clearance. Original tuning retained.
-- `scenes/movement_lab_02.tscn` (new): five descending basins, varying shaft
-  heights, upper crossings and spurs, low shortcuts, recovery pockets and rejoins.
-- `tests/test_lab02.gd` (new): 38 real-physics and replay checks.
-- `tests/fixtures/lab01_7_78.json` (new): exact uploaded baseline replay.
-- `README.md` and this report: controls, editing, validation and scope.
-- Godot-generated `.gd.uid` files accompany new scripts and the new test.
+The five repeated basins are replaced by one layered reservoir. The low chute,
+middle gallery and upper canopy share space and reconnect through a central
+atrium, a west return shaft, a mezzanine ascent and the east bank. Routes can be
+mixed and the middle gallery can be traversed in reverse. Discovery rings are
+placed across 31 ledges and junctions, rather than repeating nine markers in
+every basin. The map now draws route colors, shaft outlines and landmark labels.
 
-Byte comparisons verified that `scripts/player.gd`, `scenes/player.tscn`,
-`scenes/movement_lab.tscn` and `tests/test_movement.gd` remain unchanged.
+Changed files in this revision:
 
-## Validation results
+- `scenes/movement_lab_02.tscn`: new authored terrain, labels, rest stops, rings,
+  finish position, and `movement_lab_02_v2` identifier/save path.
+- `scripts/lab_02.gd`: world-wide fall boundary instead of the old basin formula;
+  smaller, colored and labeled overview map with visible shaft connections.
+- `tests/test_lab02.gd`: new three-route traversals, elevation checks, reverse
+  gallery traversal, inter-route shaft climbs, and old Lab 02 ghost rejection.
+- `README.md`: current route descriptions, timings, controls and replay ID.
+- `docs/LAB02_VALIDATION.md`: this report.
 
-Engine available: **Godot 4.6.3 stable**, official build `7d41c59c4`.
+Both player controllers, Lab 01's scene/player/test, shared `scripts/lab.gd`,
+project configuration and the uploaded baseline replay are unchanged by this
+revision. There is no physics retune.
 
-- Original Lab 01 suite: **20 / 20 pass**.
-- Lab 02 suite: **38 / 38 pass**.
-- Complete, input-driven Lab 02 traversal: **31.32 seconds**, **zero wall jumps**.
-  No teleports occur during this traversal. Reported actual-velocity peak is
-  about **1,160 px/s**, including airborne movement and slope transitions.
-- Separate input-driven checks climb the first shaft, land on all five upper
-  islands and rejoin the main descent, and escape the lower catch pocket with
-  two ordinary jumps. Tests place the player at the beginning of each isolated
-  scenario; they do not teleport within those branch traversals.
-- Crouch checks cover capsule dimensions, foot anchoring, tunnel entry, blocked
-  standing/jump expansion, automatic standing on exit and airborne clearance.
-- Wall checks cover both normals, buffered contact, recent/expired wall contact,
-  launch lock, held input and controlled descent.
-- Replay checks include the original 235-sample fixture, interpolation, course
-  isolation, additional telemetry, 18,001 samples over ten minutes, crouch pose,
-  malformed input rejection, and exploration not overwriting timed ghosts.
-- OpenGL runtime rendered screenshots of spawn, shaft, tunnel and overview map;
-  these were inspected for readable layout and visible collision geometry.
+## Validation
+
+Available engine: **Godot 4.6.3 stable**, official build `7d41c59c4`.
+
+- Lab 01 regression suite: **20 checks**.
+- Updated Lab 02 suite: **45 checks passed** in the staged build.
+- Complete reservoir line: **36.05 s**, no wall jumps; actual-velocity peak about
+  **1,128 px/s**, including air and slope transitions.
+- Complete canopy line: **49.78 s**, including the west shaft ascent from spawn.
+- Complete gallery line: **56.97 s**, no slide or wall jump required.
+- All three full runs use only player inputs, without teleporting. Telemetry
+  checks that each actually uses its intended elevation at x=6,500.
+- Separate physics checks climb from the reservoir through the central gallery
+  crossing to the canopy; climb the west return shaft from chute to gallery;
+  and traverse the gallery back to the start through both western gaps.
+- Existing real collider, wall forgiveness, buffered jump, ceiling clearance,
+  long ghost, malformed replay and exploration recovery checks remain.
+- Both original Lab 01 ghosts and the previous `movement_lab_02_v1` ghosts are
+  rejected by the new course. Their files are not changed or deleted.
+- OpenGL captures verify the scene and overview map render with the new layout.
 
 ## Lab 01 replay and slope investigation
 
@@ -78,25 +82,21 @@ was made. New telemetry records those missing fields for the next playtest.
 
 ## Remaining limits
 
-- Godot 4.7 is configured but not installed here; no 4.7 runtime result is claimed.
-- The 5–10 minute exploration duration is a design target, not a measured human
-  result. All 45 markers and every return spur still need a human exploration
-  pass. Automated traversal covers representative branches and the full spine.
-- The route shares a five-basin structural pattern; individual shaft heights
-  vary. Future playtests can guide more distinctive geometry per basin.
-- Ghosts remain positional recordings, not deterministic input resimulation.
-- The original slope-transition behavior is retained. A replay's vector speed
-  can exceed the 1,050 ground-speed cap during jumps or floor correction.
-- Exploration progress lasts for the current attempt. E and R reset it.
+- Godot 4.7 remains configured but is not installed here; no 4.7 validation is
+  claimed. Use the same two commands in README to check with that engine.
+- The automated runs establish reachable routes and useful timing baselines;
+  they do not establish how enjoyable, readable or expressive the course feels.
+- The 5–10 minute exploration target is not yet a measured human result. A human
+  pass through all 31 rings, mezzanine turns and smaller return ledges is still
+  needed. Those details may need further adjustment after playtesting.
+- Ghosts are positional recordings, not deterministic input resimulation.
+- Exploration discoveries reset with E/R and are not persisted between sessions.
 
-## Final local-checkout validation
+## Final checkout verification
 
-Applied the listed files to `D:\Godot\REPOs\movement_labs` after verifying it
-was still clean. Godot's headless editor import in that checkout completed
-without errors. Both suites were rerun there: **20/20 + 38/38 = 58/58 passing**,
-and the full timed run measured **31.317 seconds**. The earlier staging editor
-safe-save warning did not occur in the final checkout. `git diff --check` passed.
-Git only noted its configured CRLF-to-LF normalization on edited text files.
+The revision was applied to the local main checkout at 8e461a1 after verifying
+that it was clean and that the preserved controllers, Lab 01 files and fixture
+matched byte-for-byte. Godot editor import and both suites completed in the
+checkout: 20/20 and 45/45 passing (65 total). The diff whitespace check passed.
+Changes remain unstaged and uncommitted. No commit or push was performed.
 
-Branch remains `main`, HEAD remains `0dad3ae`, and changes are unstaged and
-uncommitted. No commit, push or GitHub update was made.

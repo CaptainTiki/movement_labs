@@ -6,6 +6,7 @@ var visited: Dictionary = {}
 var map_open: bool = false
 var recovery_point := Vector2(140, 478)
 var map_lines: Array[PackedVector2Array] = []
+var map_colors: Array[Color] = []
 
 func _ready() -> void:
 	super._ready()
@@ -13,7 +14,12 @@ func _ready() -> void:
 	for body in $Terrain.get_children():
 		var edge := body.get_node_or_null("Edge") as Line2D
 		if edge:
-			map_lines.append(edge.points)
+			var points: PackedVector2Array = edge.points
+			if points.size() == 2 and absf(points[1].x - points[0].x) <= 40:
+				points = body.get_node("Collision").polygon.duplicate()
+				points.append(points[0])
+			map_lines.append(points)
+			map_colors.append(edge.default_color)
 
 func _physics_process(delta: float) -> void:
 	if exploring and player.position.y > recovery_floor():
@@ -36,9 +42,7 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 func recovery_floor() -> float:
-	# Recover near the current basin, not thousands of pixels below the first gap.
-	var basin := clampi(int(player.position.x / 5600.0), 0, 4)
-	return 500.0 + basin * 950.0 + 1300.0
+	return fall_y
 
 func record_sample() -> void:
 	if not exploring:
@@ -70,19 +74,23 @@ func draw_map() -> void:
 		return
 	var canvas: Node2D = $HUD/Map
 	var size := get_viewport_rect().size
-	var box := Rect2(24, 125, size.x - 48, size.y - 150)
+	var box := Rect2(24, 125, size.x - 48, minf(size.y - 150, 350.0))
 	canvas.draw_rect(box, Color(0.025, 0.06, 0.08, 0.96))
-	var scale_factor: float = minf((box.size.x - 40.0) / 29800.0, (box.size.y - 40.0) / 6500.0)
+	var scale_factor: float = minf((box.size.x - 40.0) / 16800.0, (box.size.y - 40.0) / 3400.0)
 	var origin := box.position + Vector2(28, 45)
-	for line in map_lines:
+	for i in range(map_lines.size()):
+		var line := map_lines[i]
 		var points := PackedVector2Array()
 		for point in line:
-			points.append(origin + (point + Vector2(200, 700)) * scale_factor)
-		canvas.draw_polyline(points, Color("639d99"), 2.0)
+			points.append(origin + (point + Vector2(200, 1100)) * scale_factor)
+		canvas.draw_polyline(points, map_colors[i], 2.0)
 	for marker in $Discoveries.get_children():
-		canvas.draw_circle(origin + (marker.position + Vector2(200, 700)) * scale_factor, 3, Color("8ff0d1") if visited.has(marker.name) else Color("efb667"))
-	canvas.draw_circle(origin + (player.position + Vector2(200, 700)) * scale_factor, 5, Color.WHITE)
-	canvas.draw_string(ThemeDB.fallback_font, box.position + Vector2(16, 24), "FIVE BASINS   /   WHITE: YOU   /   AMBER: UNEXPLORED   /   M: CLOSE", HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color.WHITE)
+		canvas.draw_circle(origin + (marker.position + Vector2(200, 1100)) * scale_factor, 3, Color("8ff0d1") if visited.has(marker.name) else Color("efb667"))
+	var labels := {"START": Vector2(140, 500), "GALLERY": Vector2(3800, 500), "CANOPY": Vector2(6300, -700), "ATRIUM": Vector2(7150, 1100), "RESERVOIR": Vector2(8000, 2000), "FINISH": Vector2(15400, -800)}
+	for title in labels:
+		canvas.draw_string(ThemeDB.fallback_font, origin + (labels[title] + Vector2(200, 1100)) * scale_factor + Vector2(-15, -12), title, HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color.WHITE)
+	canvas.draw_circle(origin + (player.position + Vector2(200, 1100)) * scale_factor, 5, Color.WHITE)
+	canvas.draw_string(ThemeDB.fallback_font, box.position + Vector2(16, 24), "THE RESERVOIR   /   WHITE: YOU   /   AMBER: UNEXPLORED   /   M: CLOSE", HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color.WHITE)
 
 func finish_reached() -> bool:
 	return not exploring and Rect2($Finish.position + Vector2(-10, -160), Vector2(150, 180)).has_point(player.position)
