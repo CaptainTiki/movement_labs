@@ -1,0 +1,389 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/lab.gd" id="1"]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="2"]
+
+[ext_resource type="Script" path="res://scripts/backdrop.gd" id="3"]
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+
+bg_color = Color(0.035, 0.075, 0.105, 0.92)
+
+border_width_bottom = 1
+
+border_color = Color(0.22, 0.38, 0.4, 1)
+
+[node name="MovementLab" type="Node2D"]
+
+script = ExtResource("1")
+
+[node name="Background" type="CanvasLayer" parent="."]
+
+layer = -10
+
+[node name="Backdrop" type="Node2D" parent="Background"]
+
+script = ExtResource("3")
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="Descent" type="StaticBody2D" parent="Terrain"]
+
+[node name="Fill" type="Polygon2D" parent="Terrain/Descent"]
+
+color = Color(0.12, 0.26, 0.29, 1)
+
+polygon = PackedVector2Array(-200, 500, 780, 500, 1140, 707.8461, 1450, 707.8461, 1670, 927.8461, 2200, 927.8461, 2200, 1450, -200, 1450)
+
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/Descent"]
+
+polygon = PackedVector2Array(-200, 500, 780, 500, 1140, 707.8461, 1450, 707.8461, 1670, 927.8461, 2200, 927.8461, 2200, 1450, -200, 1450)
+
+[node name="Edge" type="Line2D" parent="Terrain/Descent"]
+
+points = PackedVector2Array(-200, 500, 780, 500, 1140, 707.8461, 1450, 707.8461, 1670, 927.8461, 2200, 927.8461)
+
+width = 4.0
+
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+antialiased = true
+
+[node name="ReturnSlope" type="StaticBody2D" parent="Terrain"]
+
+[node name="Fill" type="Polygon2D" parent="Terrain/ReturnSlope"]
+
+color = Color(0.12, 0.26, 0.29, 1)
+
+polygon = PackedVector2Array(2370, 927.8461, 2600, 927.8461, 2981.0512, 707.8461, 3340, 707.8461, 3340, 1450, 2370, 1450)
+
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/ReturnSlope"]
+
+polygon = PackedVector2Array(2370, 927.8461, 2600, 927.8461, 2981.0512, 707.8461, 3340, 707.8461, 3340, 1450, 2370, 1450)
+
+[node name="Edge" type="Line2D" parent="Terrain/ReturnSlope"]
+
+points = PackedVector2Array(2370, 927.8461, 2600, 927.8461, 2981.0512, 707.8461, 3340, 707.8461)
+
+width = 4.0
+
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+antialiased = true
+
+[node name="FinishIsland" type="StaticBody2D" parent="Terrain"]
+
+[node name="Fill" type="Polygon2D" parent="Terrain/FinishIsland"]
+
+color = Color(0.12, 0.26, 0.29, 1)
+
+polygon = PackedVector2Array(3490, 707.8461, 4400, 707.8461, 4400, 1450, 3490, 1450)
+
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/FinishIsland"]
+
+polygon = PackedVector2Array(3490, 707.8461, 4400, 707.8461, 4400, 1450, 3490, 1450)
+
+[node name="Edge" type="Line2D" parent="Terrain/FinishIsland"]
+
+points = PackedVector2Array(3490, 707.8461, 4400, 707.8461)
+
+width = 4.0
+
+default_color = Color(0.45, 0.76, 0.71, 1)
+
+antialiased = true
+
+[node name="LeftBoundary" type="StaticBody2D" parent="Terrain"]
+
+[node name="Collision" type="CollisionPolygon2D" parent="Terrain/LeftBoundary"]
+
+polygon = PackedVector2Array(-200, -500, -160, -500, -160, 500, -200, 500)
+
+[node name="CourseLabels" type="Node2D" parent="."]
+
+[node name="Start" type="Label" parent="CourseLabels"]
+
+offset_left = 80.0
+
+offset_top = 345.0
+
+text = "01   FIND YOUR STRIDE"
+
+theme_override_font_sizes/font_size = 27
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="StartHint" type="Label" parent="CourseLabels"]
+
+offset_left = 80.0
+
+offset_top = 386.0
+
+text = "Build speed. Tap or hold jump.\nRelease direction to brake."
+
+theme_override_font_sizes/font_size = 19
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="Slide" type="Label" parent="CourseLabels"]
+
+offset_left = 770.0
+
+offset_top = 355.0
+
+text = "02   LET GRAVITY HELP"
+
+theme_override_font_sizes/font_size = 25
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="SlideHint" type="Label" parent="CourseLabels"]
+
+offset_left = 790.0
+
+offset_top = 397.0
+
+text = "Hold S / Down / Shift on the slope.\nCarry that speed into your jump."
+
+theme_override_font_sizes/font_size = 19
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="Thirty" type="Label" parent="CourseLabels"]
+
+offset_left = 910.0
+
+offset_top = 600.0
+
+text = "30°"
+
+theme_override_font_sizes/font_size = 20
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="FortyFive" type="Label" parent="CourseLabels"]
+
+offset_left = 1515.0
+
+offset_top = 715.0
+
+text = "45°"
+
+theme_override_font_sizes/font_size = 20
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="Gap" type="Label" parent="CourseLabels"]
+
+offset_left = 1880.0
+
+offset_top = 770.0
+
+text = "03   KEEP IT FLOWING"
+
+theme_override_font_sizes/font_size = 25
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="GapHint" type="Label" parent="CourseLabels"]
+
+offset_left = 1880.0
+
+offset_top = 812.0
+
+text = "Jump the gap. Land into the climb."
+
+theme_override_font_sizes/font_size = 19
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="Uphill" type="Label" parent="CourseLabels"]
+
+offset_left = 2720.0
+
+offset_top = 625.0
+
+text = "SPEND YOUR MOMENTUM"
+
+theme_override_font_sizes/font_size = 20
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="LastJump" type="Label" parent="CourseLabels"]
+
+offset_left = 3100.0
+
+offset_top = 565.0
+
+text = "ONE MORE JUMP"
+
+theme_override_font_sizes/font_size = 22
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="FinishLabel" type="Label" parent="CourseLabels"]
+
+offset_left = 3830.0
+
+offset_top = 505.0
+
+text = "04   MAKE IT YOURS"
+
+theme_override_font_sizes/font_size = 25
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="FinishHint" type="Label" parent="CourseLabels"]
+
+offset_left = 3830.0
+
+offset_top = 547.0
+
+text = "Finish. Restart. Race your ghost."
+
+theme_override_font_sizes/font_size = 19
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="Spawn" type="Marker2D" parent="."]
+
+position = Vector2(140, 478)
+
+[node name="Finish" type="Marker2D" parent="."]
+
+position = Vector2(4020, 708)
+
+[node name="Gate" type="Line2D" parent="Finish"]
+
+points = PackedVector2Array(0, 0, 0, -130, 50, -130)
+
+width = 5.0
+
+default_color = Color(0.96, 0.72, 0.39, 1)
+
+[node name="Ghost" type="Polygon2D" parent="."]
+
+polygon = PackedVector2Array(-12, -20, 12, -20, 12, 20, -12, 20)
+
+color = Color(0.97, 0.73, 0.44, 0.38)
+
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("2")]
+
+position = Vector2(140, 478)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+position = Vector2(640, 420)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="Panel" parent="HUD"]
+
+anchors_preset = 10
+
+anchor_right = 1.0
+
+offset_bottom = 106.0
+
+grow_horizontal = 2
+
+mouse_filter = 2
+
+theme_override_styles/panel = SubResource("Panel")
+
+[node name="Title" type="Label" parent="HUD"]
+
+offset_left = 28.0
+
+offset_top = 17.0
+
+text = "MOVEMENT / LABS"
+
+theme_override_font_sizes/font_size = 26
+
+theme_override_colors/font_color = Color(0.56, 0.94, 0.82, 1)
+
+mouse_filter = 2
+
+[node name="Subtitle" type="Label" parent="HUD"]
+
+offset_left = 29.0
+
+offset_top = 53.0
+
+text = "01     MOMENTUM STUDY"
+
+theme_override_font_sizes/font_size = 14
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="Readout" type="Label" parent="HUD"]
+
+offset_left = 990.0
+
+offset_top = 18.0
+
+text = "000 px/s"
+
+theme_override_font_sizes/font_size = 19
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
+
+[node name="Message" type="Label" parent="HUD"]
+
+offset_left = 370.0
+
+offset_top = 25.0
+
+text = "MOVE TO START"
+
+theme_override_font_sizes/font_size = 16
+
+theme_override_colors/font_color = Color(0.96, 0.76, 0.48, 1)
+
+mouse_filter = 2
+
+[node name="Controls" type="Label" parent="HUD"]
+
+offset_left = 29.0
+
+offset_top = 80.0
+
+text = "A D / ← →   MOVE      SPACE   JUMP      S / ↓ / SHIFT   SLIDE      R   RESET      G   GHOST"
+
+theme_override_font_sizes/font_size = 14
+
+theme_override_colors/font_color = Color(0.66, 0.81, 0.79, 1)
+
+mouse_filter = 2
